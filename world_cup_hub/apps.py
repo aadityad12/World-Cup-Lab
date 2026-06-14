@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+from collections import defaultdict
 from datetime import date
+import json
+import random
 
 import pandas as pd
 import streamlit as st
@@ -11,6 +14,7 @@ from .data import (
     CHAOS_REQUIRED_COLUMNS,
     UNDERDOG_REQUIRED_COLUMNS,
     WINNER_REQUIRED_COLUMNS,
+    build_scoreline_heatmap,
     build_winner_factor_breakdown,
     get_winner_model_metrics,
     load_sample_chaos_data,
@@ -29,6 +33,7 @@ from .data import (
 NAV_ITEMS = {
     "🏠 Home": "home",
     "🏟️ Match Predictor": "winner",
+    "🏆 Tournament Simulator": "tournament",
     "✨ Aura Lab": "aura",
     "🌪️ Chaos Center": "chaos",
     "📡 Underdog Radar": "underdog",
@@ -41,6 +46,8 @@ def render_app(page: str) -> None:
         render_home()
     elif page == "winner":
         render_match_predictor()
+    elif page == "tournament":
+        render_tournament_simulator()
     elif page == "aura":
         render_aura_lab()
     elif page == "chaos":
@@ -71,7 +78,7 @@ def render_home() -> None:
 
     cols = st.columns(5)
     with cols[0]:
-        render_score_card("Apps", 5.0)
+        render_score_card("Apps", 6.0)
     with cols[1]:
         render_score_card("Next pick confidence", float(next_prediction["confidence"]))
     with cols[2]:
@@ -90,14 +97,20 @@ def render_home() -> None:
             f"Next: {next_prediction['fixture']} → {next_prediction['prediction_summary']}",
         )
 
-    row1 = st.columns(2)
+    row1 = st.columns(3)
     with row1[0]:
+        render_app_card(
+            "🏆 Tournament Simulator",
+            "Runs Monte Carlo group-stage simulations and an approximate knockout bracket to estimate advancement and title odds.",
+            "New: qualification + champion odds",
+        )
+    with row1[1]:
         render_app_card(
             "✨ Aura Lab",
             "Leaderboard for main-character energy using player performance, broadcast focus, crowd response, and social buzz.",
             f"Current leader: {top_player['player']}",
         )
-    with row1[1]:
+    with row1[2]:
         render_app_card(
             "🌪️ Chaos Center",
             "Ranks matches by how much nonsense they are likely to produce: cards, late goals, VAR drama, and total bedlam.",
@@ -162,6 +175,9 @@ def render_match_predictor() -> None:
         return
 
     st.sidebar.success(f"Loaded: {source_label}")
+    fallback_count = int(predictions["model_family"].eq("Heuristic Poisson fallback").sum())
+    if fallback_count:
+        st.sidebar.warning(f"{fallback_count} fixture(s) used the heuristic fallback because a team was not found in the trained model artifact.")
     stages = ["All"] + sorted(predictions["stage"].unique().tolist())
     selected_stage = st.sidebar.selectbox("Stage filter", stages, key="winner_stage")
     upcoming_only = st.sidebar.toggle("Upcoming only", value=True, key="winner_upcoming")
@@ -245,6 +261,15 @@ def render_match_predictor() -> None:
         )
         st.dataframe(prob_df, hide_index=True, use_container_width=True)
         st.bar_chart(prob_df, x="outcome", y="probability")
+
+    heatmap = build_scoreline_heatmap(next_match)
+    if not heatmap.empty:
+        st.markdown("### Exact score probability heatmap")
+        st.caption("Cells show modeled probability percent for scorelines up to 5-5.")
+        st.dataframe(
+            heatmap.style.format("{:.2f}%").background_gradient(cmap="Blues", axis=None),
+            use_container_width=True,
+        )
 
     st.markdown("### Prediction board")
     st.dataframe(
@@ -372,6 +397,186 @@ def render_match_predictor() -> None:
 
 
 
+def render_tournament_simulator() -> None:
+    render_hero(
+        "🏆 Tournament Simulator",
+        "Monte Carlo view of group qualification plus an approximate knockout bracket using the Match Predictor probabilities.",
+    )
+
+    st.sidebar.subheader("Tournament Simulator controls")
+    simulations = st.sidebar.slider("Simulations", 250, 5000, 1000, 250, key="tournament_sims")
+    seed = st.sidebar.number_input("Random seed", min_value=1, max_value=999999, value=2026, step=1, key="tournament_seed")
+
+    try:
+        predictions = score_winner_matches(load_sample_winner_data())
+        sim = simulate_tournament(predictions, simulations, int(seed))
+    except Exception as exc:
+        st.error(str(exc))
+        return
+
+    if sim.empty:
+        st.warning("No group-stage fixture data available for simulation.")
+        return
+
+    favorite = sim.sort_values("title_odds", ascending=False).iloc[0]
+    qual_leader = sim.sort_values("advance_odds", ascending=False).iloc[0]
+    dark_horse = sim[(sim["title_odds"] >= 2) & (sim["avg_elo"] < sim["avg_elo"].median())]
+    dark_horse_label = dark_horse.sort_values("title_odds", ascending=False).iloc[0]["team"] if not dark_horse.empty else "n/a"
+
+    metric_cols = st.columns(4)
+    with metric_cols[0]:
+        render_score_card("Teams", float(len(sim)))
+    with metric_cols[1]:
+        render_score_card("Title favorite %", float(favorite["title_odds"]))
+    with metric_cols[2]:
+        render_score_card("Safest advance %", float(qual_leader["advance_odds"]))
+    with metric_cols[3]:
+        render_score_card("Simulations", float(simulations))
+
+    st.markdown(f"### Title favorite: {favorite['team']}")
+    st.caption(
+        "Knockout bracket is approximate until official post-group pairings are known; group qualification uses the selected public fixtures."
+    )
+    st.markdown(f"**Dark-horse watch:** {dark_horse_label}")
+
+    left, right = st.columns([1.15, 1])
+    with left:
+        st.markdown("### Qualification board")
+        st.dataframe(
+            sim[["group", "team", "avg_points", "top2_odds", "advance_odds", "title_odds", "avg_elo"]],
+            hide_index=True,
+            use_container_width=True,
+        )
+    with right:
+        st.markdown("### Champion odds")
+        st.bar_chart(sim.sort_values("title_odds", ascending=False).head(16).set_index("team")[["title_odds"]], horizontal=True)
+        st.markdown("### Advance odds")
+        st.bar_chart(sim.sort_values("advance_odds", ascending=False).head(16).set_index("team")[["advance_odds"]], horizontal=True)
+
+    with st.expander("How this simulation works"):
+        st.markdown(
+            "Each group match samples from the Match Predictor exact-score distribution. "
+            "Teams are ranked by points, goal difference, and goals for. The top two in each group advance, plus the eight best third-place teams. "
+            "The knockout stage uses an approximate Elo-based bracket because final FIFA pairings depend on the actual third-place qualifiers."
+        )
+
+
+def _sample_scoreline(row: pd.Series, rng: random.Random) -> tuple[int, int]:
+    try:
+        records = json.loads(row.get("scoreline_grid_json", "[]"))
+    except Exception:
+        records = []
+    if records:
+        draw = rng.random() * sum(float(item["probability"]) for item in records)
+        running = 0.0
+        for item in records:
+            running += float(item["probability"])
+            if running >= draw:
+                return int(item["team_a_goals"]), int(item["team_b_goals"])
+    roll = rng.random() * 100
+    if roll < float(row["team_a_win_prob"]):
+        return 1, 0
+    if roll < float(row["team_a_win_prob"]) + float(row["draw_prob"]):
+        return 1, 1
+    return 0, 1
+
+
+def _knockout_win_probability(team_a: str, team_b: str, team_elo: dict[str, float]) -> float:
+    elo_diff = team_elo.get(team_a, 1700.0) - team_elo.get(team_b, 1700.0)
+    return 1 / (1 + 10 ** (-elo_diff / 400))
+
+
+def simulate_tournament(predictions: pd.DataFrame, simulations: int, seed: int) -> pd.DataFrame:
+    group_matches = predictions[predictions["stage"].astype(str).str.contains("Group", case=False, na=False)].copy()
+    if group_matches.empty:
+        return pd.DataFrame()
+
+    teams = sorted(set(group_matches["team_a"]).union(group_matches["team_b"]))
+    team_group: dict[str, str] = {}
+    team_elo: dict[str, float] = {}
+    for row in group_matches.itertuples(index=False):
+        team_group[str(row.team_a)] = str(row.stage)
+        team_group[str(row.team_b)] = str(row.stage)
+        team_elo.setdefault(str(row.team_a), float(row.elo_a))
+        team_elo.setdefault(str(row.team_b), float(row.elo_b))
+
+    counters = defaultdict(lambda: {"top2": 0, "advance": 0, "title": 0, "points": 0.0})
+    rng = random.Random(seed)
+
+    for _ in range(simulations):
+        table = {team: {"pts": 0, "gd": 0, "gf": 0} for team in teams}
+        for _, row in group_matches.iterrows():
+            goals_a, goals_b = _sample_scoreline(row, rng)
+            team_a, team_b = str(row["team_a"]), str(row["team_b"])
+            table[team_a]["gf"] += goals_a
+            table[team_b]["gf"] += goals_b
+            table[team_a]["gd"] += goals_a - goals_b
+            table[team_b]["gd"] += goals_b - goals_a
+            if goals_a > goals_b:
+                table[team_a]["pts"] += 3
+            elif goals_b > goals_a:
+                table[team_b]["pts"] += 3
+            else:
+                table[team_a]["pts"] += 1
+                table[team_b]["pts"] += 1
+
+        qualified: list[str] = []
+        thirds: list[str] = []
+        for group in sorted(set(team_group.values())):
+            group_teams = [team for team in teams if team_group[team] == group]
+            ranked = sorted(
+                group_teams,
+                key=lambda team: (table[team]["pts"], table[team]["gd"], table[team]["gf"], rng.random()),
+                reverse=True,
+            )
+            for team in ranked[:2]:
+                counters[team]["top2"] += 1
+                qualified.append(team)
+            if len(ranked) >= 3:
+                thirds.append(ranked[2])
+
+        best_thirds = sorted(
+            thirds,
+            key=lambda team: (table[team]["pts"], table[team]["gd"], table[team]["gf"], rng.random()),
+            reverse=True,
+        )[:8]
+        qualified.extend(best_thirds)
+        for team in qualified:
+            counters[team]["advance"] += 1
+        for team in teams:
+            counters[team]["points"] += table[team]["pts"]
+
+        bracket = qualified[:]
+        rng.shuffle(bracket)
+        while len(bracket) > 1:
+            next_round: list[str] = []
+            for i in range(0, len(bracket), 2):
+                if i + 1 >= len(bracket):
+                    next_round.append(bracket[i])
+                    continue
+                team_a, team_b = bracket[i], bracket[i + 1]
+                p_a = _knockout_win_probability(team_a, team_b, team_elo)
+                next_round.append(team_a if rng.random() < p_a else team_b)
+            bracket = next_round
+        if bracket:
+            counters[bracket[0]]["title"] += 1
+
+    rows = []
+    for team in teams:
+        rows.append(
+            {
+                "group": team_group[team],
+                "team": team,
+                "avg_points": round(counters[team]["points"] / simulations, 2),
+                "top2_odds": round(counters[team]["top2"] / simulations * 100, 1),
+                "advance_odds": round(counters[team]["advance"] / simulations * 100, 1),
+                "title_odds": round(counters[team]["title"] / simulations * 100, 1),
+                "avg_elo": round(team_elo.get(team, 1700.0), 0),
+            }
+        )
+    return pd.DataFrame(rows).sort_values(["title_odds", "advance_odds"], ascending=False).reset_index(drop=True)
+
+
 def render_aura_lab() -> None:
     render_hero(
         "✨ Aura Lab",
@@ -435,7 +640,7 @@ def render_aura_lab() -> None:
                     "value": [
                         f"{leader['aura_score']:.1f}",
                         f"{leader['peak_aura']:.1f}",
-                        int(leader['matches']),
+                        str(int(leader['matches'])),
                         f"{int(leader['social_mentions']):,}",
                     ],
                 }
@@ -601,12 +806,24 @@ def render_underdog_radar() -> None:
         "An upset-risk scanner for favorites. Good teams still wobble when the underdog can run, defend set pieces, and believe.",
     )
 
+    st.sidebar.subheader("Underdog Radar controls")
+    uploaded_file = st.sidebar.file_uploader("Upload underdog scenario CSV", type=["csv"], key="underdog_upload")
+    use_sample = st.sidebar.toggle("Use sample underdog data", value=uploaded_file is None, key="underdog_sample")
+
     try:
-        scenarios = score_underdog_scenarios(load_sample_underdog_data())
+        if uploaded_file is not None and not use_sample:
+            source_df = load_uploaded_csv(uploaded_file)
+            source_label = uploaded_file.name
+        else:
+            source_df = load_sample_underdog_data()
+            source_label = "data/sample_underdog_scenarios.csv"
+        scenarios = score_underdog_scenarios(source_df)
     except Exception as exc:
         st.error(str(exc))
         show_schema_help(UNDERDOG_REQUIRED_COLUMNS)
         return
+
+    st.sidebar.success(f"Loaded: {source_label}")
 
     metric_cols = st.columns(4)
     with metric_cols[0]:

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import math
-import re
 from io import StringIO
 from pathlib import Path
 
@@ -11,6 +10,7 @@ import streamlit as st
 
 from aura_model.scoring import REQUIRED_COLUMNS as AURA_REQUIRED_COLUMNS
 from aura_model.scoring import build_player_leaderboard, score_matches
+from world_cup_hub.normalization import candidate_team_keys
 
 CHAOS_REQUIRED_COLUMNS = [
     "match_id",
@@ -111,23 +111,29 @@ WINNER_OPTIONAL_COLUMNS = {
 
 
 @st.cache_data
+def _load_csv_cached(path: str, mtime_ns: int) -> pd.DataFrame:
+    return pd.read_csv(path)
+
+
+def _load_project_csv(path: str) -> pd.DataFrame:
+    file_path = Path(path)
+    return _load_csv_cached(str(file_path), file_path.stat().st_mtime_ns)
+
+
 def load_sample_player_data() -> pd.DataFrame:
-    return pd.read_csv("data/sample_player_matches.csv")
+    return _load_project_csv("data/sample_player_matches.csv")
 
 
-@st.cache_data
 def load_sample_chaos_data() -> pd.DataFrame:
-    return pd.read_csv("data/sample_match_chaos.csv")
+    return _load_project_csv("data/sample_match_chaos.csv")
 
 
-@st.cache_data
 def load_sample_underdog_data() -> pd.DataFrame:
-    return pd.read_csv("data/sample_underdog_scenarios.csv")
+    return _load_project_csv("data/sample_underdog_scenarios.csv")
 
 
-@st.cache_data
 def load_sample_winner_data() -> pd.DataFrame:
-    return pd.read_csv("data/public_2026_match_features.csv")
+    return _load_project_csv("data/public_2026_match_features.csv")
 
 
 def load_uploaded_csv(uploaded_file) -> pd.DataFrame:
@@ -135,11 +141,15 @@ def load_uploaded_csv(uploaded_file) -> pd.DataFrame:
 
 
 @st.cache_data
+def _load_team_strength_model_cached(path: str, mtime_ns: int) -> dict:
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
 def load_team_strength_model() -> dict:
     path = Path("models/artifacts/team_strength_model.json")
     if not path.exists():
         return {}
-    return json.loads(path.read_text(encoding="utf-8"))
+    return _load_team_strength_model_cached(str(path), path.stat().st_mtime_ns)
 
 
 def get_winner_model_metrics() -> dict:
@@ -244,6 +254,7 @@ def _danger_label(value: float) -> str:
 
 
 def score_winner_matches(df: pd.DataFrame) -> pd.DataFrame:
+    df = _coerce_winner_schema_aliases(df.copy())
     _validate_columns(df, WINNER_REQUIRED_COLUMNS)
     scored = _ensure_winner_optional_columns(df.copy())
 
@@ -262,6 +273,7 @@ def score_winner_matches(df: pd.DataFrame) -> pd.DataFrame:
     scored["predicted_score"] = prediction_df["predicted_score"]
     scored["prediction_summary"] = prediction_df["prediction_summary"]
     scored["top_scorelines"] = prediction_df["top_scorelines"]
+    scored["scoreline_grid_json"] = prediction_df["scoreline_grid_json"]
     scored["model_family"] = prediction_df["model_family"]
     scored["team_a_advances_prob"] = prediction_df["team_a_advances_prob"].round(1)
     scored["team_b_advances_prob"] = prediction_df["team_b_advances_prob"].round(1)
@@ -272,20 +284,11 @@ def score_winner_matches(df: pd.DataFrame) -> pd.DataFrame:
     return scored.sort_values(["date", "match_id"]).reset_index(drop=True)
 
 
-def _normalize_team_name(value: str) -> str:
-    value = str(value).lower().strip().replace("&", "and")
-    value = re.sub(r"[^a-z0-9]+", " ", value)
-    value = re.sub(r"\s+", " ", value).strip()
-    aliases = {
-        "usa": "united states",
-        "us": "united states",
-        "korea republic": "south korea",
-        "czechia": "czech republic",
-        "cote d ivoire": "cote d ivoire",
-        "ivory coast": "cote d ivoire",
-        "bosnia herzegovina": "bosnia and herzegovina",
-    }
-    return aliases.get(value, value)
+def _find_team_profile(profiles: dict, team_name: str) -> dict | None:
+    for key in candidate_team_keys(team_name):
+        if key in profiles:
+            return profiles[key]
+    return None
 
 
 def _numeric_value(row: pd.Series, column: str, default: float = 0.0) -> float:
@@ -352,8 +355,8 @@ def _travel_rest_multiplier(row: pd.Series, side: str) -> float:
 def _goal_lambdas_from_model(row: pd.Series) -> tuple[float, float, str]:
     model = load_team_strength_model()
     profiles = model.get("team_profiles", {})
-    team_a_profile = profiles.get(_normalize_team_name(row["team_a"]))
-    team_b_profile = profiles.get(_normalize_team_name(row["team_b"]))
+    team_a_profile = _find_team_profile(profiles, str(row["team_a"]))
+    team_b_profile = _find_team_profile(profiles, str(row["team_b"]))
 
     if not team_a_profile or not team_b_profile:
         return _expected_goals(row, "a"), _expected_goals(row, "b"), "Heuristic Poisson fallback"
@@ -418,6 +421,11 @@ def _poisson_prediction_for_row(row: pd.Series) -> dict[str, float | str]:
 
     predicted_score = f"{predicted_a}-{predicted_b}"
     top_scorelines = "; ".join(f"{a}-{b} ({p * 100:.1f}%)" for a, b, p in top_scores)
+    scoreline_grid = [
+        {"team_a_goals": a, "team_b_goals": b, "probability": round(p * 100, 3)}
+        for a, b, p in distribution
+        if a <= 5 and b <= 5
+    ]
     return {
         "team_a_win_prob": team_a_win * 100,
         "draw_prob": draw * 100,
@@ -429,12 +437,27 @@ def _poisson_prediction_for_row(row: pd.Series) -> dict[str, float | str]:
         "predicted_score": predicted_score,
         "prediction_summary": f"{winner_pick} {predicted_score}",
         "top_scorelines": top_scorelines,
+        "scoreline_grid_json": json.dumps(scoreline_grid),
         "model_family": family,
         "team_a_advances_prob": team_a_advances * 100 if _is_knockout_stage(str(row.get("stage", ""))) else 0.0,
         "team_b_advances_prob": team_b_advances * 100 if _is_knockout_stage(str(row.get("stage", ""))) else 0.0,
         "extra_time_prob": extra_time_prob,
         "penalty_shootout_prob": penalty_prob,
     }
+
+
+def _coerce_winner_schema_aliases(df: pd.DataFrame) -> pd.DataFrame:
+    # Backwards compatibility: older project files used fifa_rank_* for Elo ranking.
+    # New uploads may use the clearer elo_rank_* names.
+    if "fifa_rank_a" not in df.columns and "elo_rank_a" in df.columns:
+        df["fifa_rank_a"] = df["elo_rank_a"]
+    if "fifa_rank_b" not in df.columns and "elo_rank_b" in df.columns:
+        df["fifa_rank_b"] = df["elo_rank_b"]
+    if "elo_rank_a" not in df.columns and "fifa_rank_a" in df.columns:
+        df["elo_rank_a"] = df["fifa_rank_a"]
+    if "elo_rank_b" not in df.columns and "fifa_rank_b" in df.columns:
+        df["elo_rank_b"] = df["fifa_rank_b"]
+    return df
 
 
 def _ensure_winner_optional_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -500,6 +523,21 @@ def _expected_goals(row: pd.Series, side: str) -> float:
     return max(0.25, min(4.25, float(goals)))
 
 
+def build_scoreline_heatmap(row: pd.Series) -> pd.DataFrame:
+    payload = row.get("scoreline_grid_json", "[]")
+    try:
+        records = json.loads(payload) if isinstance(payload, str) else payload
+    except Exception:
+        records = []
+    if not records:
+        return pd.DataFrame()
+    grid = pd.DataFrame(records)
+    heatmap = grid.pivot(index="team_b_goals", columns="team_a_goals", values="probability").sort_index(ascending=False)
+    heatmap.index = [f"{row['team_b']} {goals}" for goals in heatmap.index]
+    heatmap.columns = [f"{row['team_a']} {goals}" for goals in heatmap.columns]
+    return heatmap.fillna(0.0).round(2)
+
+
 def build_winner_factor_breakdown(row: pd.Series) -> pd.DataFrame:
     factors = [
         {
@@ -510,7 +548,7 @@ def build_winner_factor_breakdown(row: pd.Series) -> pd.DataFrame:
             "weight": 24.0,
         },
         {
-            "factor": "Team ranking",
+            "factor": "Team ranking (Elo rank)",
             "team_a_signal": row["fifa_rank_a"],
             "team_b_signal": row["fifa_rank_b"],
             "edge": (row["fifa_rank_b"] - row["fifa_rank_a"]) / 50,

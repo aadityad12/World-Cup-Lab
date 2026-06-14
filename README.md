@@ -5,6 +5,7 @@ A Streamlit mini-site full of playful World Cup analytics apps.
 ## Included apps
 
 - **Match Predictor** — flagship section that predicts match winners and scores, then shows the factors behind every pick
+- **Tournament Simulator** — Monte Carlo group qualification and approximate title-odds simulator powered by Match Predictor probabilities
 - **Aura Lab** — scores player aura from match impact, crowd reaction, broadcast attention, and social buzz
 - **Chaos Center** — ranks matches by cards, late goals, penalties, VAR drama, and overall nonsense
 - **Underdog Radar** — estimates upset danger for favorites
@@ -18,6 +19,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python3 training/train_team_strength_model.py
 python3 ingestion/build_public_match_features.py
+python3 -m pytest -q
 streamlit run app.py --server.port 8503
 ```
 
@@ -39,6 +41,7 @@ streamlit run app.py --server.port 8503
 - `app.py` — main site entrypoint and navigation
 - `world_cup_hub/apps.py` — mini-app pages
 - `world_cup_hub/data.py` — data loading + scoring helpers
+- `world_cup_hub/normalization.py` — shared team-name canonicalization used by training, ingestion, and prediction
 - `world_cup_hub/components.py` — shared UI components/styles
 - `aura_model/scoring.py` — aura scoring logic
 - `ingestion/build_public_match_features.py` — public data ingestion/generation script
@@ -59,7 +62,7 @@ streamlit run app.py --server.port 8503
 - Draw predictions for group-stage near-tossups
 - Knockout advancement, extra-time, and penalty-shootout estimates when knockout fixtures are provided
 - Elo strength
-- Team ranking / Elo rank
+- Team ranking / Elo rank (`elo_rank_*` preferred; legacy `fifa_rank_*` still accepted)
 - Recent form
 - Attack vs opponent defense proxy
 - Midfield control proxy
@@ -71,11 +74,13 @@ streamlit run app.py --server.port 8503
 - Big-match experience proxy
 - Weather goal suppression
 - Optional expected lineup strength, injury impact, and suspension impact columns for richer uploaded/provider CSVs
+- Exact-score probability grid for heatmap display
 - Model evaluation metrics: accuracy, log loss, Brier score, exact-score accuracy, goal MAE, and calibration buckets
 
 ## Known limitations
 
 - The fixture source is public/community data, not an official FIFA API feed.
 - Player injuries/status, suspensions, and expected lineups are not connected yet.
+- Knockout title odds in the Tournament Simulator use an approximate Elo-based bracket until official post-group pairings are known.
 - Attack/defense/midfield/set-piece metrics are derived proxies from public Elo/recent-result data, not provider-grade event data.
 - For production-grade accuracy, connect a paid provider such as Sportradar, SportMonks, Opta/Stats Perform, or API-Football.

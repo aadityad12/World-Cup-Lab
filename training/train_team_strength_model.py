@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import csv
 import json
 import math
+import sys
 import urllib.request
 from collections import defaultdict
 from io import StringIO
@@ -13,6 +13,10 @@ from typing import Any
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from world_cup_hub.normalization import normalize_team_name
+
 ARTIFACT_DIR = ROOT / "models" / "artifacts"
 ARTIFACT_PATH = ARTIFACT_DIR / "team_strength_model.json"
 RESULTS_URL = "https://raw.githubusercontent.com/martj42/international_results/master/results.csv"
@@ -28,33 +32,6 @@ def fetch_text(url: str, timeout: int = 30) -> str:
         return response.read().decode("utf-8", "replace")
 
 
-def normalize_team(value: str) -> str:
-    value = str(value).lower().strip()
-    value = value.replace("&", "and")
-    for old, new in {
-        "u.s.a.": "united states",
-        "usa": "united states",
-        "usmnt": "united states",
-        "korea republic": "south korea",
-        "czechia": "czech republic",
-        "ivory coast": "cote d'ivoire",
-        "côte d’ivoire": "cote d'ivoire",
-        "bosnia and herzegovina": "bosnia and herzegovina",
-    }.items():
-        if value == old:
-            value = new
-    value = " ".join("".join(ch if ch.isalnum() else " " for ch in value).split())
-    aliases = {
-        "united states": "united states",
-        "korea republic": "south korea",
-        "czechia": "czech republic",
-        "cote d ivoire": "cote d ivoire",
-        "ivory coast": "cote d ivoire",
-        "bosnia herzegovina": "bosnia and herzegovina",
-    }
-    return aliases.get(value, value)
-
-
 def load_results() -> pd.DataFrame:
     text = fetch_text(RESULTS_URL)
     df = pd.read_csv(StringIO(text))
@@ -66,8 +43,8 @@ def load_results() -> pd.DataFrame:
     df["home_score"] = df["home_score"].astype(int)
     df["away_score"] = df["away_score"].astype(int)
     df["neutral"] = df["neutral"].astype(str).str.upper().eq("TRUE")
-    df["home_norm"] = df["home_team"].map(normalize_team)
-    df["away_norm"] = df["away_team"].map(normalize_team)
+    df["home_norm"] = df["home_team"].map(normalize_team_name)
+    df["away_norm"] = df["away_team"].map(normalize_team_name)
     # Modern football only: older eras have very different scoring environments.
     return df[df["date"] >= "2004-01-01"].sort_values("date").reset_index(drop=True)
 

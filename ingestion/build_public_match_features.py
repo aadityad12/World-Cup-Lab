@@ -4,6 +4,7 @@ import csv
 import json
 import math
 import re
+import sys
 import urllib.request
 from collections import defaultdict, deque
 from datetime import date, datetime
@@ -11,8 +12,14 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from world_cup_hub.normalization import normalize_team_name
+
 DATA = ROOT / "data"
 OUTPUT = DATA / "public_2026_match_features.csv"
+GENERATED_DIR = DATA / "generated"
+RAW_CACHE_DIR = DATA / "raw_cache"
 SOURCE_NOTES = DATA / "public_2026_data_sources.md"
 
 OPENFOOTBALL_WORLD_CUP_JSON = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
@@ -24,10 +31,27 @@ OPEN_METEO_FORECAST = "https://api.open-meteo.com/v1/forecast"
 HEADERS = {"User-Agent": "WorldCupFunLab/0.1 educational project"}
 
 
-def fetch_text(url: str, timeout: int = 25) -> str:
-    req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        return response.read().decode("utf-8", "replace")
+def _cache_path_for_url(url: str) -> Path:
+    safe = re.sub(r"[^a-zA-Z0-9]+", "_", url).strip("_")[:160]
+    return RAW_CACHE_DIR / f"{safe}.txt"
+
+
+def fetch_text(url: str, timeout: int = 25, retries: int = 2) -> str:
+    RAW_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_path = _cache_path_for_url(url)
+    last_error: Exception | None = None
+    for _ in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                text = response.read().decode("utf-8", "replace")
+            cache_path.write_text(text, encoding="utf-8")
+            return text
+        except Exception as exc:
+            last_error = exc
+    if cache_path.exists():
+        return cache_path.read_text(encoding="utf-8")
+    raise RuntimeError(f"Could not fetch {url}: {last_error}")
 
 
 def fetch_json(url: str) -> Any:
@@ -40,22 +64,7 @@ def read_venues() -> dict[str, dict[str, str]]:
 
 
 def normalize_name(value: str) -> str:
-    value = value.lower().strip()
-    value = value.replace("&", "and")
-    value = re.sub(r"[^a-z0-9]+", " ", value)
-    value = re.sub(r"\s+", " ", value).strip()
-    aliases = {
-        "usa": "united states",
-        "us": "united states",
-        "czechia": "czech republic",
-        "bosnia herzergovina": "bosnia and herzergovina",
-        "bosnia and herzegovina": "bosnia and herzergovina",
-        "bosnia herzegovina": "bosnia and herzergovina",
-        "south korea": "south korea",
-        "korea republic": "south korea",
-        "scotland": "scotland",
-    }
-    return aliases.get(value, value)
+    return normalize_team_name(value)
 
 
 def build_team_code_map() -> dict[str, str]:
@@ -75,7 +84,6 @@ def build_team_code_map() -> dict[str, str]:
         "cote d ivoire": "CI",
         "ivory coast": "CI",
         "curacao": "CW",
-        "bosnia and herzergovina": "BA",
         "bosnia and herzegovina": "BA",
         "haiti": "HT",
         "scotland": "SQ",
@@ -329,6 +337,8 @@ def build_features() -> list[dict[str, Any]]:
             "elo_b": elo_b,
             "fifa_rank_a": rank_a,
             "fifa_rank_b": rank_b,
+            "elo_rank_a": rank_a,
+            "elo_rank_b": rank_b,
             "recent_form_a": feat_a["recent_form"],
             "recent_form_b": feat_b["recent_form"],
             "attack_rating_a": feat_a["attack_rating"],
@@ -374,17 +384,37 @@ def main() -> None:
     if not rows:
         raise SystemExit("No fixture rows produced")
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
-        writer.writeheader()
-        writer.writerows(rows)
+    GENERATED_DIR.mkdir(parents=True, exist_ok=True)
+    generated_at = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    snapshot_output = GENERATED_DIR / f"public_2026_match_features_{generated_at}.csv"
+    for output_path in (OUTPUT, snapshot_output):
+        with output_path.open("w", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
+            writer.writeheader()
+            writer.writerows(rows)
+
+    (GENERATED_DIR / "latest_manifest.json").write_text(
+        json.dumps(
+            {
+                "generated_at_utc": generated_at,
+                "latest_csv": str(OUTPUT.relative_to(ROOT)),
+                "snapshot_csv": str(snapshot_output.relative_to(ROOT)),
+                "row_count": len(rows),
+                "fixture_source": OPENFOOTBALL_WORLD_CUP_JSON,
+                "rating_sources": [ELO_FIXTURES_TSV, ELO_LATEST_TSV, ELO_TEAMS_TSV],
+                "weather_source": OPEN_METEO_FORECAST,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
     SOURCE_NOTES.write_text(
         "# Public 2026 Match Feature Data Sources\n\n"
         "Generated by `ingestion/build_public_match_features.py`.\n\n"
         "## Connected public/no-key sources\n"
         f"- Fixtures: `{OPENFOOTBALL_WORLD_CUP_JSON}`. This is a public community dataset, not an official FIFA API.\n"
-        f"- Team ratings / Elo ranks / fixtures cross-check: `{ELO_FIXTURES_TSV}`, `{ELO_LATEST_TSV}`, `{ELO_TEAMS_TSV}`.\n"
+        f"- Team ratings / Elo ranks / fixtures cross-check: `{ELO_FIXTURES_TSV}`, `{ELO_LATEST_TSV}`, `{ELO_TEAMS_TSV}`. Columns named `fifa_rank_*` are kept for backwards compatibility; `elo_rank_*` is the clearer alias.\n"
         "- Venues/stadium coordinates: `data/host_venues_2026.csv` static host venue reference.\n"
         "- Weather: Open-Meteo forecast API at stadium coordinates and kickoff date/hour.\n\n"
         "## Important limitations\n"
@@ -396,6 +426,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"Wrote {len(rows)} rows to {OUTPUT}")
+    print(f"Wrote snapshot to {snapshot_output}")
     print(f"Wrote source notes to {SOURCE_NOTES}")
 
 
