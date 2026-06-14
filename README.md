@@ -26,6 +26,7 @@ streamlit run app.py --server.port 8503
 ## Match Predictor data files
 
 - `data/public_2026_match_features.csv` — generated public-data fixture/features file used by the app
+- `data/public_2026_results.csv` — completed-match final scores from the public fixture source for prediction-vs-result audits
 - `data/public_2026_data_sources.md` — exact source notes and limitations
 - `data/host_venues_2026.csv` — host stadium/city/coordinate reference
 - `data/sample_fake_2026_match_features.csv` — old fake/demo fixture features, kept only as an explicitly labeled sample
@@ -75,6 +76,7 @@ streamlit run app.py --server.port 8503
 - Weather goal suppression
 - Optional expected lineup strength, injury impact, and suspension impact columns for richer uploaded/provider CSVs
 - Exact-score probability grid for heatmap display
+- Completed-match prediction audit that shows predicted winner/score beside the real result when available
 - Model evaluation metrics: accuracy, log loss, Brier score, exact-score accuracy, goal MAE, and calibration buckets
 
 ## Known limitations

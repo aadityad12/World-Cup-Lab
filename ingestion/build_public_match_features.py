@@ -318,6 +318,12 @@ def build_features() -> list[dict[str, Any]]:
         travel_km_a = team_travel_km(code_a)
         travel_km_b = team_travel_km(code_b)
 
+        score = match.get("score", {}).get("ft") if isinstance(match.get("score"), dict) else None
+        actual_goals_a = score[0] if score else ""
+        actual_goals_b = score[1] if score else ""
+        actual_score = f"{actual_goals_a}-{actual_goals_b}" if score else ""
+        actual_outcome = team_a if score and actual_goals_a > actual_goals_b else "Draw" if score and actual_goals_a == actual_goals_b else team_b if score else ""
+
         row = {
             "match_id": f"WC2026-{index:03d}",
             "date": match_date,
@@ -370,6 +376,11 @@ def build_features() -> list[dict[str, Any]]:
             "rating_source": "World Football Elo Ratings public TSV",
             "venue_source": "FIFA 2026 host city/stadium public reference mapping",
             "weather_source": weather.get("weather_source", "Open-Meteo forecast API"),
+            "actual_score": actual_score,
+            "actual_goals_a": actual_goals_a,
+            "actual_goals_b": actual_goals_b,
+            "actual_outcome": actual_outcome,
+            "result_source": "openfootball/worldcup.json public repository" if score else "",
             "unavailable_data_notes": "Player injuries/status/suspensions and confirmed lineups not available from no-key public sources; injuries_impact is set to 0 until a provider is connected.",
         }
         rows.append(row)
@@ -422,7 +433,8 @@ def main() -> None:
         "- Player injuries, player status, suspensions, and expected lineups were not available from reliable no-key public APIs.\n"
         "- Attack/defense/midfield/set-piece features are derived proxies from Elo + recent results, not provider-grade event data.\n"
         "- Travel fatigue includes rough venue-to-venue great-circle distance once a team has already played in the tournament.\n"
-        "- Weather availability depends on Open-Meteo coverage for the requested dates.\n",
+        "- Weather availability depends on Open-Meteo coverage for the requested dates.\n"
+        "- Completed-match results are included when the public fixture source contains final scores.\n",
         encoding="utf-8",
     )
     print(f"Wrote {len(rows)} rows to {OUTPUT}")

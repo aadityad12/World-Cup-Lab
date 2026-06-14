@@ -5,7 +5,7 @@ import json
 import pandas as pd
 
 from world_cup_hub.apps import simulate_tournament
-from world_cup_hub.data import build_scoreline_heatmap, score_winner_matches
+from world_cup_hub.data import build_prediction_result_comparison, build_scoreline_heatmap, load_public_2026_results, score_winner_matches
 from world_cup_hub.normalization import normalize_team_name
 
 
@@ -53,3 +53,10 @@ def test_tournament_simulator_outputs_teams_and_odds() -> None:
     assert len(sim) == 48
     assert round(sim["advance_odds"].sum(), 1) == 3200.0
     assert round(sim["title_odds"].sum(), 1) == 100.0
+
+
+def test_completed_results_join_to_predictions() -> None:
+    predictions = score_winner_matches(pd.read_csv("data/public_2026_match_features.csv"))
+    comparison = build_prediction_result_comparison(predictions, load_public_2026_results())
+    assert len(comparison) >= 4
+    assert {"actual_score", "actual_outcome", "prediction_correct"}.issubset(comparison.columns)

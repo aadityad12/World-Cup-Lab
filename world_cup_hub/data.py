@@ -10,7 +10,7 @@ import streamlit as st
 
 from aura_model.scoring import REQUIRED_COLUMNS as AURA_REQUIRED_COLUMNS
 from aura_model.scoring import build_player_leaderboard, score_matches
-from world_cup_hub.normalization import candidate_team_keys
+from world_cup_hub.normalization import candidate_team_keys, normalize_team_name
 
 CHAOS_REQUIRED_COLUMNS = [
     "match_id",
@@ -134,6 +134,13 @@ def load_sample_underdog_data() -> pd.DataFrame:
 
 def load_sample_winner_data() -> pd.DataFrame:
     return _load_project_csv("data/public_2026_match_features.csv")
+
+
+def load_public_2026_results() -> pd.DataFrame:
+    path = Path("data/public_2026_results.csv")
+    if not path.exists():
+        return pd.DataFrame()
+    return _load_project_csv(str(path))
 
 
 def load_uploaded_csv(uploaded_file) -> pd.DataFrame:
@@ -521,6 +528,32 @@ def _expected_goals(row: pd.Series, side: str) -> float:
         - _weather_goal_penalty(row)
     )
     return max(0.25, min(4.25, float(goals)))
+
+
+def build_prediction_result_comparison(predictions: pd.DataFrame, results: pd.DataFrame) -> pd.DataFrame:
+    if results.empty:
+        return pd.DataFrame()
+    pred = predictions.copy()
+    actual = results.copy()
+    pred["_join_key"] = pred.apply(
+        lambda row: f"{row['date']}|{normalize_team_name(row['team_a'])}|{normalize_team_name(row['team_b'])}",
+        axis=1,
+    )
+    actual["_join_key"] = actual.apply(
+        lambda row: f"{row['date']}|{normalize_team_name(row['team_a'])}|{normalize_team_name(row['team_b'])}",
+        axis=1,
+    )
+    merged = pred.merge(
+        actual[["_join_key", "actual_score", "actual_goals_a", "actual_goals_b", "actual_outcome", "result_source"]],
+        on="_join_key",
+        how="inner",
+    )
+    if merged.empty:
+        return merged
+    merged["prediction_correct"] = merged["winner_pick"].astype(str).str.lower() == merged["actual_outcome"].astype(str).str.lower()
+    merged["exact_score_correct"] = merged["predicted_score"].astype(str) == merged["actual_score"].astype(str)
+    merged["result_status"] = merged["prediction_correct"].map({True: "Correct", False: "Missed"})
+    return merged.sort_values(["date", "match_id"]).reset_index(drop=True)
 
 
 def build_scoreline_heatmap(row: pd.Series) -> pd.DataFrame:

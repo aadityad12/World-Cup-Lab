@@ -1,0 +1,8 @@
+match_id,date,kickoff_local,stage,team_a,team_b,actual_score,actual_goals_a,actual_goals_b,actual_outcome,result_source
+WC2026-001,2026-06-11,13:00 UTC-6,Group A,Mexico,South Africa,2-0,2,0,Mexico,openfootball/worldcup.json public repository
+WC2026-002,2026-06-11,20:00 UTC-6,Group A,South Korea,Czech Republic,2-1,2,1,South Korea,openfootball/worldcup.json public repository
+WC2026-007,2026-06-12,15:00 UTC-4,Group B,Canada,Bosnia & Herzegovina,1-1,1,1,Draw,openfootball/worldcup.json public repository
+WC2026-008,2026-06-13,12:00 UTC-7,Group B,Qatar,Switzerland,1-1,1,1,Draw,openfootball/worldcup.json public repository
+WC2026-013,2026-06-13,18:00 UTC-4,Group C,Brazil,Morocco,1-1,1,1,Draw,openfootball/worldcup.json public repository
+WC2026-014,2026-06-13,21:00 UTC-4,Group C,Haiti,Scotland,0-1,0,1,Scotland,openfootball/worldcup.json public repository
+WC2026-019,2026-06-12,18:00 UTC-7,Group D,USA,Paraguay,4-1,4,1,USA,openfootball/worldcup.json public repository
