@@ -1,0 +1,13 @@
+match_id,date,stage,team_a,team_b,elo_a,elo_b,fifa_rank_a,fifa_rank_b,recent_form_a,recent_form_b,attack_rating_a,attack_rating_b,defense_rating_a,defense_rating_b,midfield_control_a,midfield_control_b,goalkeeper_form_a,goalkeeper_form_b,set_piece_strength_a,set_piece_strength_b,injuries_impact_a,injuries_impact_b,rest_days_a,rest_days_b,travel_fatigue_a,travel_fatigue_b,home_region_boost_a,home_region_boost_b,big_match_experience_a,big_match_experience_b
+P001,2026-06-11,Group,Mexico,South Africa,1785,1650,14,59,78,69,82,73,79,72,80,70,76,72,77,74,8,10,6,6,12,20,9,2,82,64
+P002,2026-06-12,Group,Canada,Japan,1710,1815,32,18,74,81,77,84,74,80,75,82,75,79,72,78,9,7,6,6,10,17,8,1,66,76
+P003,2026-06-13,Group,United States,South Korea,1765,1725,20,26,77,73,80,77,76,75,78,76,74,76,76,80,7,8,5,5,8,16,10,1,72,71
+P004,2026-06-14,Group,Argentina,Morocco,1915,1770,1,13,86,82,91,80,87,82,88,78,84,83,79,85,6,7,5,5,18,14,2,1,96,79
+P005,2026-06-15,Group,France,Senegal,1905,1740,2,19,84,78,92,81,86,79,87,77,83,78,82,80,8,6,5,5,15,16,1,0,94,75
+P006,2026-06-16,Group,Brazil,Switzerland,1875,1768,5,17,82,75,90,78,84,82,86,79,81,80,80,78,10,6,4,5,17,13,1,0,93,80
+P007,2026-06-17,Group,England,USA,1840,1765,4,20,80,77,86,80,85,76,84,78,80,74,84,76,9,7,5,6,13,7,1,9,89,72
+P008,2026-06-18,Group,Spain,Colombia,1835,1745,7,16,81,79,85,82,84,78,90,76,79,77,76,81,7,9,5,5,14,12,0,1,88,75
+P009,2026-06-19,Group,Germany,Ghana,1810,1648,10,61,78,70,84,75,81,72,85,72,77,73,83,77,8,12,4,5,16,18,0,0,91,64
+P010,2026-06-20,Group,Portugal,Uruguay,1828,1795,6,11,80,79,87,83,82,81,84,80,78,82,81,80,7,8,4,4,12,11,0,0,90,87
+P011,2026-06-21,Group,Netherlands,Ecuador,1804,1712,8,31,79,74,84,78,83,76,83,74,79,76,80,79,6,8,5,4,15,12,0,1,86,68
+P012,2026-06-22,Group,Italy,Nigeria,1788,1702,12,34,76,75,81,82,84,74,82,73,80,75,78,83,9,8,4,5,14,17,0,0,92,70

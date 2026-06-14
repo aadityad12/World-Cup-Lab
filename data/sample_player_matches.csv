@@ -1,0 +1,15 @@
+player,team,opponent,stage,minutes,goals,assists,key_passes,successful_dribbles,progressive_carries,duels_won,fouls_drawn,recoveries,tackles_won,interceptions,shots_on_target,decisive_actions,key_moment_minute,winning_goal,equalizer_goal,motm,crowd_reaction,screen_time_share,social_mentions,sentiment,celebration_rating,underdog_flag,pre_tournament_star_power
+Kylian Mbappe,France,Netherlands,Group,90,2,0,2,5,9,7,4,3,1,0,4,2,83,1,0,1,92,0.19,98000,0.88,89,0,0.98
+Kylian Mbappe,France,Mexico,R16,90,1,1,3,4,8,6,5,2,0,0,3,2,76,1,0,1,95,0.21,120000,0.91,93,0,0.98
+Jude Bellingham,England,USA,Group,90,1,0,4,3,11,9,3,7,3,2,2,2,64,1,0,1,85,0.17,76000,0.84,82,0,0.92
+Jude Bellingham,England,Denmark,R16,90,0,1,5,4,10,10,4,8,4,1,1,1,88,0,1,1,89,0.18,89000,0.87,80,0,0.92
+Lamine Yamal,Spain,Croatia,Group,78,1,1,3,6,10,5,4,2,0,0,2,2,71,1,0,1,87,0.16,110000,0.93,95,0,0.80
+Lamine Yamal,Spain,Germany,QF,90,1,0,4,7,12,6,6,1,0,0,3,2,109,1,0,1,98,0.22,180000,0.96,97,0,0.80
+Vinicius Junior,Brazil,Serbia,Group,88,1,0,2,8,13,5,6,1,0,0,3,2,58,1,0,1,91,0.18,130000,0.90,94,0,0.95
+Vinicius Junior,Brazil,Japan,R16,90,0,1,4,9,14,6,7,2,1,0,2,1,102,0,1,0,94,0.20,160000,0.89,92,0,0.95
+Lionel Messi,Argentina,Poland,Group,90,1,1,6,4,9,7,5,3,1,1,3,2,86,1,0,1,97,0.24,210000,0.94,90,0,1.00
+Lionel Messi,Argentina,Uruguay,QF,90,0,2,7,5,11,8,4,2,1,0,2,2,95,0,1,1,96,0.25,230000,0.95,88,0,1.00
+Christian Pulisic,USA,Wales,Group,90,1,0,3,4,9,7,5,4,1,0,2,2,79,1,0,1,88,0.18,70000,0.86,84,1,0.87
+Christian Pulisic,USA,Germany,R16,90,0,1,4,5,10,8,6,5,1,1,1,1,93,0,1,1,90,0.19,98000,0.88,83,1,0.87
+Achraf Hakimi,Morocco,Belgium,Group,90,0,1,2,3,8,11,3,9,4,3,1,1,74,0,1,1,86,0.14,54000,0.82,78,1,0.84
+Achraf Hakimi,Morocco,Portugal,QF,90,1,0,2,4,9,12,4,10,4,2,2,2,101,1,0,1,93,0.17,88000,0.90,91,1,0.84

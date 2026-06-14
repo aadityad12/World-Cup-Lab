@@ -1,0 +1,3015 @@
+{
+  "dixon_coles_rho": 0.03,
+  "first_training_date": "2004-01-01",
+  "global_avg_goals_per_team": 1.35397,
+  "half_life_days": 1095.0,
+  "holdout_rows": 3600,
+  "holdout_start_date": "2023-01-02",
+  "home_advantage_multiplier": 1.1619,
+  "last_training_date": "2022-12-30",
+  "limitations": [
+    "Uses public historical international results only; it does not include paid xG/event feeds.",
+    "Team strengths are aggregate recency-weighted factors, not player-level lineup ratings.",
+    "Injuries, suspensions, and lineups are supported in the app schema but require an external provider or manual CSV."
+  ],
+  "max_goals_modeled": 8,
+  "metrics": {
+    "accuracy": 0.5667,
+    "brier_score": 0.1849,
+    "calibration": [
+      {
+        "actual_accuracy": 37.23,
+        "avg_confidence": 37.97,
+        "bucket": "30-40%",
+        "matches": 513
+      },
+      {
+        "actual_accuracy": 47.83,
+        "avg_confidence": 44.72,
+        "bucket": "40-50%",
+        "matches": 1403
+      },
+      {
+        "actual_accuracy": 61.05,
+        "avg_confidence": 54.63,
+        "bucket": "50-60%",
+        "matches": 937
+      },
+      {
+        "actual_accuracy": 76.71,
+        "avg_confidence": 64.42,
+        "bucket": "60-70%",
+        "matches": 498
+      },
+      {
+        "actual_accuracy": 88.59,
+        "avg_confidence": 74.14,
+        "bucket": "70-80%",
+        "matches": 184
+      },
+      {
+        "actual_accuracy": 93.22,
+        "avg_confidence": 84.02,
+        "bucket": "80-90%",
+        "matches": 59
+      },
+      {
+        "actual_accuracy": 100.0,
+        "avg_confidence": 93.8,
+        "bucket": "90-100%",
+        "matches": 6
+      }
+    ],
+    "exact_score_accuracy": 0.13,
+    "log_loss": 0.9389,
+    "mean_goal_absolute_error": 0.9937,
+    "test_matches": 3600
+  },
+  "model_name": "recency_weighted_international_poisson_dixon_coles",
+  "model_version": "0.1.0",
+  "source_url": "https://raw.githubusercontent.com/martj42/international_results/master/results.csv",
+  "team_profiles": {
+    "abkhazia": {
+      "attack_factor": 1.0896,
+      "defense_concede_factor": 0.8426,
+      "display_name": "Abkhazia",
+      "raw_matches": 33,
+      "weighted_goals_against_per_match": 0.737,
+      "weighted_goals_for_per_match": 1.705,
+      "weighted_matches": 9.5,
+      "weighted_points_rate": 0.6046
+    },
+    "afghanistan": {
+      "attack_factor": 0.9107,
+      "defense_concede_factor": 1.1184,
+      "display_name": "Afghanistan",
+      "raw_matches": 97,
+      "weighted_goals_against_per_match": 1.638,
+      "weighted_goals_for_per_match": 1.139,
+      "weighted_matches": 23.25,
+      "weighted_points_rate": 0.3563
+    },
+    "albania": {
+      "attack_factor": 0.8504,
+      "defense_concede_factor": 0.9283,
+      "display_name": "Albania",
+      "raw_matches": 177,
+      "weighted_goals_against_per_match": 1.219,
+      "weighted_goals_for_per_match": 1.073,
+      "weighted_matches": 46.44,
+      "weighted_points_rate": 0.4262
+    },
+    "alderney": {
+      "attack_factor": 0.8541,
+      "defense_concede_factor": 1.5667,
+      "display_name": "Alderney",
+      "raw_matches": 39,
+      "weighted_goals_against_per_match": 3.67,
+      "weighted_goals_for_per_match": 0.758,
+      "weighted_matches": 8.92,
+      "weighted_points_rate": 0.1008
+    },
+    "algeria": {
+      "attack_factor": 1.4081,
+      "defense_concede_factor": 0.7235,
+      "display_name": "Algeria",
+      "raw_matches": 201,
+      "weighted_goals_against_per_match": 0.858,
+      "weighted_goals_for_per_match": 2.086,
+      "weighted_matches": 55.45,
+      "weighted_points_rate": 0.6747
+    },
+    "ambazonia": {
+      "attack_factor": 0.9932,
+      "defense_concede_factor": 1.0102,
+      "display_name": "Ambazonia",
+      "raw_matches": 6,
+      "weighted_goals_against_per_match": 2.911,
+      "weighted_goals_for_per_match": 0.316,
+      "weighted_matches": 0.16,
+      "weighted_points_rate": 0.0295
+    },
+    "american samoa": {
+      "attack_factor": 0.8976,
+      "defense_concede_factor": 1.6228,
+      "display_name": "American Samoa",
+      "raw_matches": 25,
+      "weighted_goals_against_per_match": 5.681,
+      "weighted_goals_for_per_match": 0.643,
+      "weighted_matches": 4.36,
+      "weighted_points_rate": 0.1784
+    },
+    "andalusia": {
+      "attack_factor": 1.0061,
+      "defense_concede_factor": 0.9974,
+      "display_name": "Andalusia",
+      "raw_matches": 4,
+      "weighted_goals_against_per_match": 0.911,
+      "weighted_goals_for_per_match": 2.4,
+      "weighted_matches": 0.14,
+      "weighted_points_rate": 0.941
+    },
+    "andorra": {
+      "attack_factor": 0.5488,
+      "defense_concede_factor": 1.3293,
+      "display_name": "Andorra",
+      "raw_matches": 148,
+      "weighted_goals_against_per_match": 1.981,
+      "weighted_goals_for_per_match": 0.494,
+      "weighted_matches": 44.18,
+      "weighted_points_rate": 0.2067
+    },
+    "angola": {
+      "attack_factor": 0.875,
+      "defense_concede_factor": 0.8048,
+      "display_name": "Angola",
+      "raw_matches": 198,
+      "weighted_goals_against_per_match": 0.966,
+      "weighted_goals_for_per_match": 1.105,
+      "weighted_matches": 38.4,
+      "weighted_points_rate": 0.4606
+    },
+    "anguilla": {
+      "attack_factor": 0.6665,
+      "defense_concede_factor": 1.85,
+      "display_name": "Anguilla",
+      "raw_matches": 43,
+      "weighted_goals_against_per_match": 4.074,
+      "weighted_goals_for_per_match": 0.316,
+      "weighted_matches": 13.87,
+      "weighted_points_rate": 0.0942
+    },
+    "antigua and barbuda": {
+      "attack_factor": 1.0062,
+      "defense_concede_factor": 1.182,
+      "display_name": "Antigua and Barbuda",
+      "raw_matches": 110,
+      "weighted_goals_against_per_match": 1.812,
+      "weighted_goals_for_per_match": 1.37,
+      "weighted_matches": 21.01,
+      "weighted_points_rate": 0.4712
+    },
+    "arameans suryoye": {
+      "attack_factor": 1.0141,
+      "defense_concede_factor": 0.9939,
+      "display_name": "Arameans Suryoye",
+      "raw_matches": 10,
+      "weighted_goals_against_per_match": 1.201,
+      "weighted_goals_for_per_match": 1.711,
+      "weighted_matches": 1.02,
+      "weighted_points_rate": 0.6219
+    },
+    "argentina": {
+      "attack_factor": 1.312,
+      "defense_concede_factor": 0.6549,
+      "display_name": "Argentina",
+      "raw_matches": 262,
+      "weighted_goals_against_per_match": 0.747,
+      "weighted_goals_for_per_match": 1.903,
+      "weighted_matches": 65.4,
+      "weighted_points_rate": 0.7068
+    },
+    "armenia": {
+      "attack_factor": 0.8893,
+      "defense_concede_factor": 1.3827,
+      "display_name": "Armenia",
+      "raw_matches": 167,
+      "weighted_goals_against_per_match": 2.081,
+      "weighted_goals_for_per_match": 1.144,
+      "weighted_matches": 44.7,
+      "weighted_points_rate": 0.3493
+    },
+    "artsakh": {
+      "attack_factor": 1.1171,
+      "defense_concede_factor": 1.0145,
+      "display_name": "Artsakh",
+      "raw_matches": 11,
+      "weighted_goals_against_per_match": 1.48,
+      "weighted_goals_for_per_match": 2.376,
+      "weighted_matches": 3.31,
+      "weighted_points_rate": 0.6352
+    },
+    "aruba": {
+      "attack_factor": 0.9292,
+      "defense_concede_factor": 1.3796,
+      "display_name": "Aruba",
+      "raw_matches": 51,
+      "weighted_goals_against_per_match": 2.46,
+      "weighted_goals_for_per_match": 1.148,
+      "weighted_matches": 15.62,
+      "weighted_points_rate": 0.2702
+    },
+    "australia": {
+      "attack_factor": 1.2336,
+      "defense_concede_factor": 0.7652,
+      "display_name": "Australia",
+      "raw_matches": 219,
+      "weighted_goals_against_per_match": 0.922,
+      "weighted_goals_for_per_match": 1.783,
+      "weighted_matches": 50.29,
+      "weighted_points_rate": 0.6111
+    },
+    "austria": {
+      "attack_factor": 1.0745,
+      "defense_concede_factor": 0.9247,
+      "display_name": "Austria",
+      "raw_matches": 186,
+      "weighted_goals_against_per_match": 1.216,
+      "weighted_goals_for_per_match": 1.491,
+      "weighted_matches": 50.56,
+      "weighted_points_rate": 0.5254
+    },
+    "azerbaijan": {
+      "attack_factor": 0.7492,
+      "defense_concede_factor": 1.0481,
+      "display_name": "Azerbaijan",
+      "raw_matches": 191,
+      "weighted_goals_against_per_match": 1.445,
+      "weighted_goals_for_per_match": 0.881,
+      "weighted_matches": 45.86,
+      "weighted_points_rate": 0.312
+    },
+    "bahamas": {
+      "attack_factor": 0.8525,
+      "defense_concede_factor": 1.3416,
+      "display_name": "Bahamas",
+      "raw_matches": 35,
+      "weighted_goals_against_per_match": 2.37,
+      "weighted_goals_for_per_match": 0.915,
+      "weighted_matches": 15.05,
+      "weighted_points_rate": 0.3053
+    },
+    "bahrain": {
+      "attack_factor": 1.066,
+      "defense_concede_factor": 0.7816,
+      "display_name": "Bahrain",
+      "raw_matches": 298,
+      "weighted_goals_against_per_match": 0.966,
+      "weighted_goals_for_per_match": 1.471,
+      "weighted_matches": 57.67,
+      "weighted_points_rate": 0.5514
+    },
+    "bangladesh": {
+      "attack_factor": 0.698,
+      "defense_concede_factor": 1.1819,
+      "display_name": "Bangladesh",
+      "raw_matches": 127,
+      "weighted_goals_against_per_match": 1.726,
+      "weighted_goals_for_per_match": 0.737,
+      "weighted_matches": 35.37,
+      "weighted_points_rate": 0.2938
+    },
+    "barawa": {
+      "attack_factor": 0.9894,
+      "defense_concede_factor": 1.3401,
+      "display_name": "Barawa",
+      "raw_matches": 12,
+      "weighted_goals_against_per_match": 3.828,
+      "weighted_goals_for_per_match": 1.276,
+      "weighted_matches": 4.12,
+      "weighted_points_rate": 0.2606
+    },
+    "barbados": {
+      "attack_factor": 0.8467,
+      "defense_concede_factor": 1.2242,
+      "display_name": "Barbados",
+      "raw_matches": 110,
+      "weighted_goals_against_per_match": 1.872,
+      "weighted_goals_for_per_match": 1.0,
+      "weighted_matches": 25.49,
+      "weighted_points_rate": 0.3034
+    },
+    "basque country": {
+      "attack_factor": 1.0652,
+      "defense_concede_factor": 0.9621,
+      "display_name": "Basque Country",
+      "raw_matches": 19,
+      "weighted_goals_against_per_match": 0.907,
+      "weighted_goals_for_per_match": 2.123,
+      "weighted_matches": 2.33,
+      "weighted_points_rate": 0.7551
+    },
+    "belarus": {
+      "attack_factor": 0.7894,
+      "defense_concede_factor": 1.1099,
+      "display_name": "Belarus",
+      "raw_matches": 191,
+      "weighted_goals_against_per_match": 1.56,
+      "weighted_goals_for_per_match": 0.958,
+      "weighted_matches": 46.55,
+      "weighted_points_rate": 0.3349
+    },
+    "belgium": {
+      "attack_factor": 1.5439,
+      "defense_concede_factor": 0.7559,
+      "display_name": "Belgium",
+      "raw_matches": 207,
+      "weighted_goals_against_per_match": 0.923,
+      "weighted_goals_for_per_match": 2.314,
+      "weighted_matches": 59.28,
+      "weighted_points_rate": 0.7087
+    },
+    "belize": {
+      "attack_factor": 0.8311,
+      "defense_concede_factor": 1.129,
+      "display_name": "Belize",
+      "raw_matches": 75,
+      "weighted_goals_against_per_match": 1.681,
+      "weighted_goals_for_per_match": 0.925,
+      "weighted_matches": 20.59,
+      "weighted_points_rate": 0.286
+    },
+    "benin": {
+      "attack_factor": 0.8448,
+      "defense_concede_factor": 0.88,
+      "display_name": "Benin",
+      "raw_matches": 137,
+      "weighted_goals_against_per_match": 1.1,
+      "weighted_goals_for_per_match": 1.026,
+      "weighted_matches": 32.13,
+      "weighted_points_rate": 0.438
+    },
+    "bermuda": {
+      "attack_factor": 1.2447,
+      "defense_concede_factor": 1.2096,
+      "display_name": "Bermuda",
+      "raw_matches": 89,
+      "weighted_goals_against_per_match": 1.892,
+      "weighted_goals_for_per_match": 1.982,
+      "weighted_matches": 20.12,
+      "weighted_points_rate": 0.3871
+    },
+    "bhutan": {
+      "attack_factor": 0.7617,
+      "defense_concede_factor": 1.7999,
+      "display_name": "Bhutan",
+      "raw_matches": 62,
+      "weighted_goals_against_per_match": 4.183,
+      "weighted_goals_for_per_match": 0.511,
+      "weighted_matches": 11.17,
+      "weighted_points_rate": 0.1298
+    },
+    "bolivia": {
+      "attack_factor": 0.8319,
+      "defense_concede_factor": 1.3916,
+      "display_name": "Bolivia",
+      "raw_matches": 168,
+      "weighted_goals_against_per_match": 2.098,
+      "weighted_goals_for_per_match": 1.035,
+      "weighted_matches": 44.58,
+      "weighted_points_rate": 0.2464
+    },
+    "bonaire": {
+      "attack_factor": 1.1672,
+      "defense_concede_factor": 1.1538,
+      "display_name": "Bonaire",
+      "raw_matches": 25,
+      "weighted_goals_against_per_match": 1.949,
+      "weighted_goals_for_per_match": 2.0,
+      "weighted_matches": 9.7,
+      "weighted_points_rate": 0.5901
+    },
+    "bosnia and herzegovina": {
+      "attack_factor": 0.9777,
+      "defense_concede_factor": 0.9538,
+      "display_name": "Bosnia and Herzegovina",
+      "raw_matches": 178,
+      "weighted_goals_against_per_match": 1.267,
+      "weighted_goals_for_per_match": 1.312,
+      "weighted_matches": 45.83,
+      "weighted_points_rate": 0.4454
+    },
+    "botswana": {
+      "attack_factor": 0.7419,
+      "defense_concede_factor": 0.8304,
+      "display_name": "Botswana",
+      "raw_matches": 198,
+      "weighted_goals_against_per_match": 1.022,
+      "weighted_goals_for_per_match": 0.849,
+      "weighted_matches": 40.41,
+      "weighted_points_rate": 0.3853
+    },
+    "brazil": {
+      "attack_factor": 1.4378,
+      "defense_concede_factor": 0.5108,
+      "display_name": "Brazil",
+      "raw_matches": 268,
+      "weighted_goals_against_per_match": 0.493,
+      "weighted_goals_for_per_match": 2.125,
+      "weighted_matches": 62.18,
+      "weighted_points_rate": 0.7759
+    },
+    "british virgin islands": {
+      "attack_factor": 0.7688,
+      "defense_concede_factor": 1.7779,
+      "display_name": "British Virgin Islands",
+      "raw_matches": 54,
+      "weighted_goals_against_per_match": 3.788,
+      "weighted_goals_for_per_match": 0.631,
+      "weighted_matches": 13.73,
+      "weighted_points_rate": 0.1041
+    },
+    "brittany": {
+      "attack_factor": 0.9957,
+      "defense_concede_factor": 0.9946,
+      "display_name": "Brittany",
+      "raw_matches": 5,
+      "weighted_goals_against_per_match": 0.909,
+      "weighted_goals_for_per_match": 0.999,
+      "weighted_matches": 0.3,
+      "weighted_points_rate": 0.6022
+    },
+    "brunei": {
+      "attack_factor": 0.9276,
+      "defense_concede_factor": 1.6145,
+      "display_name": "Brunei",
+      "raw_matches": 51,
+      "weighted_goals_against_per_match": 3.089,
+      "weighted_goals_for_per_match": 1.15,
+      "weighted_matches": 16.59,
+      "weighted_points_rate": 0.2463
+    },
+    "bulgaria": {
+      "attack_factor": 0.8444,
+      "defense_concede_factor": 1.0662,
+      "display_name": "Bulgaria",
+      "raw_matches": 174,
+      "weighted_goals_against_per_match": 1.48,
+      "weighted_goals_for_per_match": 1.058,
+      "weighted_matches": 44.65,
+      "weighted_points_rate": 0.3742
+    },
+    "burkina faso": {
+      "attack_factor": 1.0028,
+      "defense_concede_factor": 0.7953,
+      "display_name": "Burkina Faso",
+      "raw_matches": 189,
+      "weighted_goals_against_per_match": 0.969,
+      "weighted_goals_for_per_match": 1.359,
+      "weighted_matches": 46.45,
+      "weighted_points_rate": 0.5591
+    },
+    "burundi": {
+      "attack_factor": 0.9311,
+      "defense_concede_factor": 0.9514,
+      "display_name": "Burundi",
+      "raw_matches": 126,
+      "weighted_goals_against_per_match": 1.245,
+      "weighted_goals_for_per_match": 1.199,
+      "weighted_matches": 27.28,
+      "weighted_points_rate": 0.3732
+    },
+    "cambodia": {
+      "attack_factor": 0.9102,
+      "defense_concede_factor": 1.6574,
+      "display_name": "Cambodia",
+      "raw_matches": 134,
+      "weighted_goals_against_per_match": 2.666,
+      "weighted_goals_for_per_match": 1.175,
+      "weighted_matches": 37.94,
+      "weighted_points_rate": 0.3142
+    },
+    "cameroon": {
+      "attack_factor": 0.9801,
+      "defense_concede_factor": 0.7378,
+      "display_name": "Cameroon",
+      "raw_matches": 212,
+      "weighted_goals_against_per_match": 0.879,
+      "weighted_goals_for_per_match": 1.318,
+      "weighted_matches": 53.23,
+      "weighted_points_rate": 0.5662
+    },
+    "canada": {
+      "attack_factor": 1.4252,
+      "defense_concede_factor": 0.7557,
+      "display_name": "Canada",
+      "raw_matches": 174,
+      "weighted_goals_against_per_match": 0.909,
+      "weighted_goals_for_per_match": 2.129,
+      "weighted_matches": 51.94,
+      "weighted_points_rate": 0.5958
+    },
+    "cape verde": {
+      "attack_factor": 0.9227,
+      "defense_concede_factor": 0.8053,
+      "display_name": "Cape Verde",
+      "raw_matches": 123,
+      "weighted_goals_against_per_match": 0.951,
+      "weighted_goals_for_per_match": 1.194,
+      "weighted_matches": 34.07,
+      "weighted_points_rate": 0.5234
+    },
+    "cascadia": {
+      "attack_factor": 1.1853,
+      "defense_concede_factor": 1.0618,
+      "display_name": "Cascadia",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 1.984,
+      "weighted_goals_for_per_match": 3.244,
+      "weighted_matches": 2.75,
+      "weighted_points_rate": 0.6132
+    },
+    "catalonia": {
+      "attack_factor": 1.0257,
+      "defense_concede_factor": 0.9974,
+      "display_name": "Catalonia",
+      "raw_matches": 17,
+      "weighted_goals_against_per_match": 1.303,
+      "weighted_goals_for_per_match": 1.855,
+      "weighted_matches": 1.34,
+      "weighted_points_rate": 0.5719
+    },
+    "cayman islands": {
+      "attack_factor": 0.7951,
+      "defense_concede_factor": 1.3574,
+      "display_name": "Cayman Islands",
+      "raw_matches": 45,
+      "weighted_goals_against_per_match": 2.494,
+      "weighted_goals_for_per_match": 0.701,
+      "weighted_matches": 13.29,
+      "weighted_points_rate": 0.2702
+    },
+    "central african republic": {
+      "attack_factor": 0.7815,
+      "defense_concede_factor": 1.1436,
+      "display_name": "Central African Republic",
+      "raw_matches": 62,
+      "weighted_goals_against_per_match": 1.699,
+      "weighted_goals_for_per_match": 0.829,
+      "weighted_matches": 23.19,
+      "weighted_points_rate": 0.2616
+    },
+    "chad": {
+      "attack_factor": 0.7756,
+      "defense_concede_factor": 1.0956,
+      "display_name": "Chad",
+      "raw_matches": 54,
+      "weighted_goals_against_per_match": 1.676,
+      "weighted_goals_for_per_match": 0.598,
+      "weighted_matches": 12.11,
+      "weighted_points_rate": 0.2008
+    },
+    "chagos islands": {
+      "attack_factor": 1.0173,
+      "defense_concede_factor": 1.5599,
+      "display_name": "Chagos Islands",
+      "raw_matches": 16,
+      "weighted_goals_against_per_match": 5.644,
+      "weighted_goals_for_per_match": 1.487,
+      "weighted_matches": 3.86,
+      "weighted_points_rate": 0.1344
+    },
+    "chameria": {
+      "attack_factor": 1.0403,
+      "defense_concede_factor": 0.9497,
+      "display_name": "Chameria",
+      "raw_matches": 5,
+      "weighted_goals_against_per_match": 0.799,
+      "weighted_goals_for_per_match": 1.799,
+      "weighted_matches": 2.52,
+      "weighted_points_rate": 0.5333
+    },
+    "chile": {
+      "attack_factor": 0.8946,
+      "defense_concede_factor": 0.9454,
+      "display_name": "Chile",
+      "raw_matches": 245,
+      "weighted_goals_against_per_match": 1.257,
+      "weighted_goals_for_per_match": 1.166,
+      "weighted_matches": 57.3,
+      "weighted_points_rate": 0.4246
+    },
+    "china": {
+      "attack_factor": 1.1276,
+      "defense_concede_factor": 0.9029,
+      "display_name": "China",
+      "raw_matches": 233,
+      "weighted_goals_against_per_match": 1.17,
+      "weighted_goals_for_per_match": 1.595,
+      "weighted_matches": 45.2,
+      "weighted_points_rate": 0.4778
+    },
+    "colombia": {
+      "attack_factor": 0.9729,
+      "defense_concede_factor": 0.7283,
+      "display_name": "Colombia",
+      "raw_matches": 226,
+      "weighted_goals_against_per_match": 0.862,
+      "weighted_goals_for_per_match": 1.305,
+      "weighted_matches": 53.21,
+      "weighted_points_rate": 0.5548
+    },
+    "comoros": {
+      "attack_factor": 0.8384,
+      "defense_concede_factor": 1.0443,
+      "display_name": "Comoros",
+      "raw_matches": 90,
+      "weighted_goals_against_per_match": 1.445,
+      "weighted_goals_for_per_match": 1.02,
+      "weighted_matches": 34.29,
+      "weighted_points_rate": 0.3589
+    },
+    "congo": {
+      "attack_factor": 0.8348,
+      "defense_concede_factor": 1.0835,
+      "display_name": "Congo",
+      "raw_matches": 117,
+      "weighted_goals_against_per_match": 1.536,
+      "weighted_goals_for_per_match": 0.994,
+      "weighted_matches": 29.57,
+      "weighted_points_rate": 0.3265
+    },
+    "cook islands": {
+      "attack_factor": 0.9386,
+      "defense_concede_factor": 1.0528,
+      "display_name": "Cook Islands",
+      "raw_matches": 22,
+      "weighted_goals_against_per_match": 1.902,
+      "weighted_goals_for_per_match": 0.716,
+      "weighted_matches": 2.7,
+      "weighted_points_rate": 0.2498
+    },
+    "corsica": {
+      "attack_factor": 0.9918,
+      "defense_concede_factor": 0.9791,
+      "display_name": "Corsica",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 0.658,
+      "weighted_goals_for_per_match": 1.082,
+      "weighted_matches": 0.76,
+      "weighted_points_rate": 0.5612
+    },
+    "costa rica": {
+      "attack_factor": 0.8779,
+      "defense_concede_factor": 0.8735,
+      "display_name": "Costa Rica",
+      "raw_matches": 287,
+      "weighted_goals_against_per_match": 1.131,
+      "weighted_goals_for_per_match": 1.139,
+      "weighted_matches": 65.35,
+      "weighted_points_rate": 0.5018
+    },
+    "cote d ivoire": {
+      "attack_factor": 1.1471,
+      "defense_concede_factor": 0.7339,
+      "display_name": "Ivory Coast",
+      "raw_matches": 221,
+      "weighted_goals_against_per_match": 0.857,
+      "weighted_goals_for_per_match": 1.629,
+      "weighted_matches": 47.54,
+      "weighted_points_rate": 0.6254
+    },
+    "county of nice": {
+      "attack_factor": 1.0497,
+      "defense_concede_factor": 1.009,
+      "display_name": "County of Nice",
+      "raw_matches": 9,
+      "weighted_goals_against_per_match": 1.504,
+      "weighted_goals_for_per_match": 2.179,
+      "weighted_matches": 1.6,
+      "weighted_points_rate": 0.7086
+    },
+    "crimea": {
+      "attack_factor": 1.0003,
+      "defense_concede_factor": 1.0048,
+      "display_name": "Crimea",
+      "raw_matches": 5,
+      "weighted_goals_against_per_match": 2.2,
+      "weighted_goals_for_per_match": 1.401,
+      "weighted_matches": 0.14,
+      "weighted_points_rate": 0.5999
+    },
+    "croatia": {
+      "attack_factor": 1.1582,
+      "defense_concede_factor": 0.8386,
+      "display_name": "Croatia",
+      "raw_matches": 227,
+      "weighted_goals_against_per_match": 1.07,
+      "weighted_goals_for_per_match": 1.632,
+      "weighted_matches": 64.05,
+      "weighted_points_rate": 0.591
+    },
+    "cuba": {
+      "attack_factor": 1.0179,
+      "defense_concede_factor": 1.1743,
+      "display_name": "Cuba",
+      "raw_matches": 147,
+      "weighted_goals_against_per_match": 1.731,
+      "weighted_goals_for_per_match": 1.393,
+      "weighted_matches": 30.17,
+      "weighted_points_rate": 0.429
+    },
+    "cura\u00e7ao": {
+      "attack_factor": 1.1616,
+      "defense_concede_factor": 0.9661,
+      "display_name": "Cura\u00e7ao",
+      "raw_matches": 110,
+      "weighted_goals_against_per_match": 1.279,
+      "weighted_goals_for_per_match": 1.713,
+      "weighted_matches": 28.06,
+      "weighted_points_rate": 0.4269
+    },
+    "cyprus": {
+      "attack_factor": 0.7027,
+      "defense_concede_factor": 1.2602,
+      "display_name": "Cyprus",
+      "raw_matches": 163,
+      "weighted_goals_against_per_match": 1.846,
+      "weighted_goals_for_per_match": 0.791,
+      "weighted_matches": 45.21,
+      "weighted_points_rate": 0.2657
+    },
+    "czech republic": {
+      "attack_factor": 1.0838,
+      "defense_concede_factor": 0.9455,
+      "display_name": "Czech Republic",
+      "raw_matches": 212,
+      "weighted_goals_against_per_match": 1.255,
+      "weighted_goals_for_per_match": 1.507,
+      "weighted_matches": 52.11,
+      "weighted_points_rate": 0.4957
+    },
+    "darfur": {
+      "attack_factor": 0.9533,
+      "defense_concede_factor": 1.4906,
+      "display_name": "Darfur",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 14.35,
+      "weighted_goals_for_per_match": 0.116,
+      "weighted_matches": 0.97,
+      "weighted_points_rate": 0.0
+    },
+    "denmark": {
+      "attack_factor": 1.2752,
+      "defense_concede_factor": 0.7013,
+      "display_name": "Denmark",
+      "raw_matches": 208,
+      "weighted_goals_against_per_match": 0.821,
+      "weighted_goals_for_per_match": 1.845,
+      "weighted_matches": 56.77,
+      "weighted_points_rate": 0.6079
+    },
+    "djibouti": {
+      "attack_factor": 0.7436,
+      "defense_concede_factor": 1.6878,
+      "display_name": "Djibouti",
+      "raw_matches": 61,
+      "weighted_goals_against_per_match": 3.3,
+      "weighted_goals_for_per_match": 0.629,
+      "weighted_matches": 16.52,
+      "weighted_points_rate": 0.1267
+    },
+    "dominica": {
+      "attack_factor": 0.9124,
+      "defense_concede_factor": 1.0443,
+      "display_name": "Dominica",
+      "raw_matches": 78,
+      "weighted_goals_against_per_match": 1.471,
+      "weighted_goals_for_per_match": 1.121,
+      "weighted_matches": 18.76,
+      "weighted_points_rate": 0.3646
+    },
+    "dominican republic": {
+      "attack_factor": 1.0536,
+      "defense_concede_factor": 0.9871,
+      "display_name": "Dominican Republic",
+      "raw_matches": 80,
+      "weighted_goals_against_per_match": 1.322,
+      "weighted_goals_for_per_match": 1.485,
+      "weighted_matches": 22.27,
+      "weighted_points_rate": 0.4261
+    },
+    "donetsk pr": {
+      "attack_factor": 0.9999,
+      "defense_concede_factor": 0.9901,
+      "display_name": "Donetsk PR",
+      "raw_matches": 6,
+      "weighted_goals_against_per_match": 1.109,
+      "weighted_goals_for_per_match": 1.352,
+      "weighted_matches": 1.04,
+      "weighted_points_rate": 0.4902
+    },
+    "dr congo": {
+      "attack_factor": 0.9492,
+      "defense_concede_factor": 0.8807,
+      "display_name": "DR Congo",
+      "raw_matches": 179,
+      "weighted_goals_against_per_match": 1.121,
+      "weighted_goals_for_per_match": 1.255,
+      "weighted_matches": 40.41,
+      "weighted_points_rate": 0.4342
+    },
+    "ecuador": {
+      "attack_factor": 0.97,
+      "defense_concede_factor": 0.8917,
+      "display_name": "Ecuador",
+      "raw_matches": 222,
+      "weighted_goals_against_per_match": 1.158,
+      "weighted_goals_for_per_match": 1.3,
+      "weighted_matches": 53.9,
+      "weighted_points_rate": 0.4459
+    },
+    "egypt": {
+      "attack_factor": 1.0511,
+      "defense_concede_factor": 0.6281,
+      "display_name": "Egypt",
+      "raw_matches": 240,
+      "weighted_goals_against_per_match": 0.685,
+      "weighted_goals_for_per_match": 1.446,
+      "weighted_matches": 54.87,
+      "weighted_points_rate": 0.6428
+    },
+    "el salvador": {
+      "attack_factor": 0.8975,
+      "defense_concede_factor": 0.9131,
+      "display_name": "El Salvador",
+      "raw_matches": 220,
+      "weighted_goals_against_per_match": 1.199,
+      "weighted_goals_for_per_match": 1.171,
+      "weighted_matches": 56.28,
+      "weighted_points_rate": 0.424
+    },
+    "ellan vannin": {
+      "attack_factor": 1.1377,
+      "defense_concede_factor": 1.0122,
+      "display_name": "Ellan Vannin",
+      "raw_matches": 22,
+      "weighted_goals_against_per_match": 1.427,
+      "weighted_goals_for_per_match": 2.181,
+      "weighted_matches": 5.24,
+      "weighted_points_rate": 0.5614
+    },
+    "england": {
+      "attack_factor": 1.4907,
+      "defense_concede_factor": 0.6418,
+      "display_name": "England",
+      "raw_matches": 232,
+      "weighted_goals_against_per_match": 0.723,
+      "weighted_goals_for_per_match": 2.218,
+      "weighted_matches": 63.38,
+      "weighted_points_rate": 0.677
+    },
+    "equatorial guinea": {
+      "attack_factor": 0.7924,
+      "defense_concede_factor": 0.888,
+      "display_name": "Equatorial Guinea",
+      "raw_matches": 101,
+      "weighted_goals_against_per_match": 1.117,
+      "weighted_goals_for_per_match": 0.915,
+      "weighted_matches": 32.12,
+      "weighted_points_rate": 0.4471
+    },
+    "eritrea": {
+      "attack_factor": 0.9114,
+      "defense_concede_factor": 1.0814,
+      "display_name": "Eritrea",
+      "raw_matches": 35,
+      "weighted_goals_against_per_match": 2.05,
+      "weighted_goals_for_per_match": 0.597,
+      "weighted_matches": 3.39,
+      "weighted_points_rate": 0.0951
+    },
+    "estonia": {
+      "attack_factor": 0.7857,
+      "defense_concede_factor": 1.116,
+      "display_name": "Estonia",
+      "raw_matches": 235,
+      "weighted_goals_against_per_match": 1.564,
+      "weighted_goals_for_per_match": 0.966,
+      "weighted_matches": 53.35,
+      "weighted_points_rate": 0.3709
+    },
+    "eswatini": {
+      "attack_factor": 0.8662,
+      "defense_concede_factor": 1.018,
+      "display_name": "Eswatini",
+      "raw_matches": 137,
+      "weighted_goals_against_per_match": 1.391,
+      "weighted_goals_for_per_match": 1.08,
+      "weighted_matches": 34.97,
+      "weighted_points_rate": 0.3833
+    },
+    "ethiopia": {
+      "attack_factor": 0.9092,
+      "defense_concede_factor": 0.9986,
+      "display_name": "Ethiopia",
+      "raw_matches": 146,
+      "weighted_goals_against_per_match": 1.351,
+      "weighted_goals_for_per_match": 1.17,
+      "weighted_matches": 36.5,
+      "weighted_points_rate": 0.3756
+    },
+    "falkland islands": {
+      "attack_factor": 0.9567,
+      "defense_concede_factor": 1.2362,
+      "display_name": "Falkland Islands",
+      "raw_matches": 25,
+      "weighted_goals_against_per_match": 3.45,
+      "weighted_goals_for_per_match": 0.97,
+      "weighted_matches": 3.24,
+      "weighted_points_rate": 0.1733
+    },
+    "faroe islands": {
+      "attack_factor": 0.7265,
+      "defense_concede_factor": 1.3178,
+      "display_name": "Faroe Islands",
+      "raw_matches": 139,
+      "weighted_goals_against_per_match": 1.965,
+      "weighted_goals_for_per_match": 0.828,
+      "weighted_matches": 42.92,
+      "weighted_points_rate": 0.2826
+    },
+    "felvid\u00e9k": {
+      "attack_factor": 0.9748,
+      "defense_concede_factor": 1.0152,
+      "display_name": "Felvid\u00e9k",
+      "raw_matches": 12,
+      "weighted_goals_against_per_match": 1.498,
+      "weighted_goals_for_per_match": 1.115,
+      "weighted_matches": 3.0,
+      "weighted_points_rate": 0.4842
+    },
+    "fiji": {
+      "attack_factor": 1.2068,
+      "defense_concede_factor": 0.9476,
+      "display_name": "Fiji",
+      "raw_matches": 78,
+      "weighted_goals_against_per_match": 1.223,
+      "weighted_goals_for_per_match": 1.872,
+      "weighted_matches": 21.17,
+      "weighted_points_rate": 0.4978
+    },
+    "finland": {
+      "attack_factor": 0.8677,
+      "defense_concede_factor": 0.8711,
+      "display_name": "Finland",
+      "raw_matches": 205,
+      "weighted_goals_against_per_match": 1.117,
+      "weighted_goals_for_per_match": 1.111,
+      "weighted_matches": 50.56,
+      "weighted_points_rate": 0.4543
+    },
+    "france": {
+      "attack_factor": 1.3632,
+      "defense_concede_factor": 0.7254,
+      "display_name": "France",
+      "raw_matches": 254,
+      "weighted_goals_against_per_match": 0.871,
+      "weighted_goals_for_per_match": 1.993,
+      "weighted_matches": 65.43,
+      "weighted_points_rate": 0.7079
+    },
+    "french guiana": {
+      "attack_factor": 1.1562,
+      "defense_concede_factor": 0.9177,
+      "display_name": "French Guiana",
+      "raw_matches": 88,
+      "weighted_goals_against_per_match": 1.143,
+      "weighted_goals_for_per_match": 1.754,
+      "weighted_matches": 20.2,
+      "weighted_points_rate": 0.5672
+    },
+    "fr\u00f8ya": {
+      "attack_factor": 0.9928,
+      "defense_concede_factor": 1.2774,
+      "display_name": "Fr\u00f8ya",
+      "raw_matches": 16,
+      "weighted_goals_against_per_match": 4.897,
+      "weighted_goals_for_per_match": 1.262,
+      "weighted_matches": 2.13,
+      "weighted_points_rate": 0.089
+    },
+    "gabon": {
+      "attack_factor": 0.8767,
+      "defense_concede_factor": 0.8413,
+      "display_name": "Gabon",
+      "raw_matches": 154,
+      "weighted_goals_against_per_match": 1.032,
+      "weighted_goals_for_per_match": 1.104,
+      "weighted_matches": 36.28,
+      "weighted_points_rate": 0.4669
+    },
+    "galicia": {
+      "attack_factor": 0.9999,
+      "defense_concede_factor": 1.0205,
+      "display_name": "Galicia",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 2.549,
+      "weighted_goals_for_per_match": 1.35,
+      "weighted_matches": 0.43,
+      "weighted_points_rate": 0.4117
+    },
+    "gambia": {
+      "attack_factor": 0.803,
+      "defense_concede_factor": 0.813,
+      "display_name": "Gambia",
+      "raw_matches": 91,
+      "weighted_goals_against_per_match": 0.945,
+      "weighted_goals_for_per_match": 0.923,
+      "weighted_matches": 29.24,
+      "weighted_points_rate": 0.4721
+    },
+    "georgia": {
+      "attack_factor": 0.9262,
+      "defense_concede_factor": 0.8999,
+      "display_name": "Georgia",
+      "raw_matches": 181,
+      "weighted_goals_against_per_match": 1.165,
+      "weighted_goals_for_per_match": 1.214,
+      "weighted_matches": 45.34,
+      "weighted_points_rate": 0.4603
+    },
+    "germany": {
+      "attack_factor": 1.6121,
+      "defense_concede_factor": 0.8493,
+      "display_name": "Germany",
+      "raw_matches": 260,
+      "weighted_goals_against_per_match": 1.089,
+      "weighted_goals_for_per_match": 2.431,
+      "weighted_matches": 60.81,
+      "weighted_points_rate": 0.6532
+    },
+    "ghana": {
+      "attack_factor": 0.9854,
+      "defense_concede_factor": 0.8028,
+      "display_name": "Ghana",
+      "raw_matches": 224,
+      "weighted_goals_against_per_match": 0.993,
+      "weighted_goals_for_per_match": 1.327,
+      "weighted_matches": 50.95,
+      "weighted_points_rate": 0.5179
+    },
+    "gibraltar": {
+      "attack_factor": 0.5776,
+      "defense_concede_factor": 1.85,
+      "display_name": "Gibraltar",
+      "raw_matches": 97,
+      "weighted_goals_against_per_match": 3.085,
+      "weighted_goals_for_per_match": 0.521,
+      "weighted_matches": 39.51,
+      "weighted_points_rate": 0.1702
+    },
+    "gotland": {
+      "attack_factor": 1.1515,
+      "defense_concede_factor": 1.0598,
+      "display_name": "Gotland",
+      "raw_matches": 20,
+      "weighted_goals_against_per_match": 1.964,
+      "weighted_goals_for_per_match": 2.902,
+      "weighted_matches": 2.75,
+      "weighted_points_rate": 0.3115
+    },
+    "gozo": {
+      "attack_factor": 1.0376,
+      "defense_concede_factor": 1.0281,
+      "display_name": "Gozo",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 2.931,
+      "weighted_goals_for_per_match": 3.463,
+      "weighted_matches": 0.45,
+      "weighted_points_rate": 0.3039
+    },
+    "greece": {
+      "attack_factor": 0.8985,
+      "defense_concede_factor": 0.7635,
+      "display_name": "Greece",
+      "raw_matches": 211,
+      "weighted_goals_against_per_match": 0.915,
+      "weighted_goals_for_per_match": 1.165,
+      "weighted_matches": 48.46,
+      "weighted_points_rate": 0.5303
+    },
+    "greenland": {
+      "attack_factor": 1.0897,
+      "defense_concede_factor": 1.0344,
+      "display_name": "Greenland",
+      "raw_matches": 31,
+      "weighted_goals_against_per_match": 1.627,
+      "weighted_goals_for_per_match": 2.067,
+      "weighted_matches": 3.7,
+      "weighted_points_rate": 0.5396
+    },
+    "grenada": {
+      "attack_factor": 0.8894,
+      "defense_concede_factor": 1.3301,
+      "display_name": "Grenada",
+      "raw_matches": 113,
+      "weighted_goals_against_per_match": 2.115,
+      "weighted_goals_for_per_match": 1.099,
+      "weighted_matches": 25.57,
+      "weighted_points_rate": 0.3181
+    },
+    "guadeloupe": {
+      "attack_factor": 1.1293,
+      "defense_concede_factor": 0.9663,
+      "display_name": "Guadeloupe",
+      "raw_matches": 104,
+      "weighted_goals_against_per_match": 1.265,
+      "weighted_goals_for_per_match": 1.694,
+      "weighted_matches": 19.08,
+      "weighted_points_rate": 0.5003
+    },
+    "guam": {
+      "attack_factor": 0.807,
+      "defense_concede_factor": 1.4862,
+      "display_name": "Guam",
+      "raw_matches": 75,
+      "weighted_goals_against_per_match": 2.723,
+      "weighted_goals_for_per_match": 0.81,
+      "weighted_matches": 16.68,
+      "weighted_points_rate": 0.1821
+    },
+    "guatemala": {
+      "attack_factor": 1.2405,
+      "defense_concede_factor": 0.8328,
+      "display_name": "Guatemala",
+      "raw_matches": 196,
+      "weighted_goals_against_per_match": 1.02,
+      "weighted_goals_for_per_match": 1.835,
+      "weighted_matches": 37.78,
+      "weighted_points_rate": 0.5537
+    },
+    "guernsey": {
+      "attack_factor": 1.2183,
+      "defense_concede_factor": 0.8804,
+      "display_name": "Guernsey",
+      "raw_matches": 58,
+      "weighted_goals_against_per_match": 0.945,
+      "weighted_goals_for_per_match": 2.1,
+      "weighted_matches": 11.81,
+      "weighted_points_rate": 0.5908
+    },
+    "guinea": {
+      "attack_factor": 0.8262,
+      "defense_concede_factor": 0.9574,
+      "display_name": "Guinea",
+      "raw_matches": 167,
+      "weighted_goals_against_per_match": 1.27,
+      "weighted_goals_for_per_match": 1.013,
+      "weighted_matches": 39.99,
+      "weighted_points_rate": 0.4067
+    },
+    "guinea bissau": {
+      "attack_factor": 0.8891,
+      "defense_concede_factor": 1.0057,
+      "display_name": "Guinea-Bissau",
+      "raw_matches": 71,
+      "weighted_goals_against_per_match": 1.366,
+      "weighted_goals_for_per_match": 1.11,
+      "weighted_matches": 28.83,
+      "weighted_points_rate": 0.3746
+    },
+    "guyana": {
+      "attack_factor": 1.1097,
+      "defense_concede_factor": 1.3003,
+      "display_name": "Guyana",
+      "raw_matches": 113,
+      "weighted_goals_against_per_match": 2.062,
+      "weighted_goals_for_per_match": 1.613,
+      "weighted_matches": 24.31,
+      "weighted_points_rate": 0.4069
+    },
+    "haiti": {
+      "attack_factor": 1.3491,
+      "defense_concede_factor": 0.976,
+      "display_name": "Haiti",
+      "raw_matches": 178,
+      "weighted_goals_against_per_match": 1.305,
+      "weighted_goals_for_per_match": 2.073,
+      "weighted_matches": 34.59,
+      "weighted_points_rate": 0.5447
+    },
+    "hitra": {
+      "attack_factor": 1.036,
+      "defense_concede_factor": 1.2417,
+      "display_name": "Hitra",
+      "raw_matches": 11,
+      "weighted_goals_against_per_match": 3.308,
+      "weighted_goals_for_per_match": 1.645,
+      "weighted_matches": 3.62,
+      "weighted_points_rate": 0.3146
+    },
+    "honduras": {
+      "attack_factor": 0.8232,
+      "defense_concede_factor": 1.0402,
+      "display_name": "Honduras",
+      "raw_matches": 261,
+      "weighted_goals_against_per_match": 1.426,
+      "weighted_goals_for_per_match": 1.039,
+      "weighted_matches": 56.77,
+      "weighted_points_rate": 0.3548
+    },
+    "hong kong": {
+      "attack_factor": 0.8153,
+      "defense_concede_factor": 1.1553,
+      "display_name": "Hong Kong",
+      "raw_matches": 139,
+      "weighted_goals_against_per_match": 1.687,
+      "weighted_goals_for_per_match": 0.958,
+      "weighted_matches": 30.76,
+      "weighted_points_rate": 0.3465
+    },
+    "hungary": {
+      "attack_factor": 1.0222,
+      "defense_concede_factor": 0.9135,
+      "display_name": "Hungary",
+      "raw_matches": 195,
+      "weighted_goals_against_per_match": 1.195,
+      "weighted_goals_for_per_match": 1.395,
+      "weighted_matches": 50.17,
+      "weighted_points_rate": 0.5194
+    },
+    "iceland": {
+      "attack_factor": 0.8959,
+      "defense_concede_factor": 1.1117,
+      "display_name": "Iceland",
+      "raw_matches": 204,
+      "weighted_goals_against_per_match": 1.554,
+      "weighted_goals_for_per_match": 1.168,
+      "weighted_matches": 56.34,
+      "weighted_points_rate": 0.3826
+    },
+    "india": {
+      "attack_factor": 1.0483,
+      "defense_concede_factor": 0.9391,
+      "display_name": "India",
+      "raw_matches": 177,
+      "weighted_goals_against_per_match": 1.234,
+      "weighted_goals_for_per_match": 1.449,
+      "weighted_matches": 39.51,
+      "weighted_points_rate": 0.5015
+    },
+    "indonesia": {
+      "attack_factor": 1.3035,
+      "defense_concede_factor": 1.117,
+      "display_name": "Indonesia",
+      "raw_matches": 177,
+      "weighted_goals_against_per_match": 1.578,
+      "weighted_goals_for_per_match": 1.935,
+      "weighted_matches": 43.4,
+      "weighted_points_rate": 0.5206
+    },
+    "iran": {
+      "attack_factor": 1.3023,
+      "defense_concede_factor": 0.6376,
+      "display_name": "Iran",
+      "raw_matches": 247,
+      "weighted_goals_against_per_match": 0.691,
+      "weighted_goals_for_per_match": 1.907,
+      "weighted_matches": 51.2,
+      "weighted_points_rate": 0.6982
+    },
+    "iraq": {
+      "attack_factor": 0.8594,
+      "defense_concede_factor": 0.7658,
+      "display_name": "Iraq",
+      "raw_matches": 279,
+      "weighted_goals_against_per_match": 0.942,
+      "weighted_goals_for_per_match": 1.106,
+      "weighted_matches": 60.02,
+      "weighted_points_rate": 0.5056
+    },
+    "iraqi kurdistan": {
+      "attack_factor": 1.1011,
+      "defense_concede_factor": 0.9461,
+      "display_name": "Iraqi Kurdistan",
+      "raw_matches": 27,
+      "weighted_goals_against_per_match": 0.874,
+      "weighted_goals_for_per_match": 2.253,
+      "weighted_matches": 3.23,
+      "weighted_points_rate": 0.5935
+    },
+    "isle of man": {
+      "attack_factor": 1.5331,
+      "defense_concede_factor": 0.9701,
+      "display_name": "Isle of Man",
+      "raw_matches": 28,
+      "weighted_goals_against_per_match": 1.177,
+      "weighted_goals_for_per_match": 4.511,
+      "weighted_matches": 5.33,
+      "weighted_points_rate": 0.816
+    },
+    "isle of wight": {
+      "attack_factor": 1.0416,
+      "defense_concede_factor": 0.9818,
+      "display_name": "Isle of Wight",
+      "raw_matches": 13,
+      "weighted_goals_against_per_match": 1.015,
+      "weighted_goals_for_per_match": 2.126,
+      "weighted_matches": 1.42,
+      "weighted_points_rate": 0.6537
+    },
+    "israel": {
+      "attack_factor": 1.178,
+      "defense_concede_factor": 1.1739,
+      "display_name": "Israel",
+      "raw_matches": 154,
+      "weighted_goals_against_per_match": 1.691,
+      "weighted_goals_for_per_match": 1.699,
+      "weighted_matches": 41.77,
+      "weighted_points_rate": 0.4533
+    },
+    "italy": {
+      "attack_factor": 1.2414,
+      "defense_concede_factor": 0.6734,
+      "display_name": "Italy",
+      "raw_matches": 243,
+      "weighted_goals_against_per_match": 0.777,
+      "weighted_goals_for_per_match": 1.78,
+      "weighted_matches": 59.01,
+      "weighted_points_rate": 0.655
+    },
+    "jamaica": {
+      "attack_factor": 0.949,
+      "defense_concede_factor": 0.9662,
+      "display_name": "Jamaica",
+      "raw_matches": 225,
+      "weighted_goals_against_per_match": 1.292,
+      "weighted_goals_for_per_match": 1.261,
+      "weighted_matches": 51.51,
+      "weighted_points_rate": 0.4218
+    },
+    "japan": {
+      "attack_factor": 1.4079,
+      "defense_concede_factor": 0.6947,
+      "display_name": "Japan",
+      "raw_matches": 298,
+      "weighted_goals_against_per_match": 0.817,
+      "weighted_goals_for_per_match": 2.072,
+      "weighted_matches": 69.91,
+      "weighted_points_rate": 0.6657
+    },
+    "jersey": {
+      "attack_factor": 1.3624,
+      "defense_concede_factor": 0.8207,
+      "display_name": "Jersey",
+      "raw_matches": 59,
+      "weighted_goals_against_per_match": 0.744,
+      "weighted_goals_for_per_match": 2.586,
+      "weighted_matches": 11.92,
+      "weighted_points_rate": 0.7917
+    },
+    "jordan": {
+      "attack_factor": 1.0427,
+      "defense_concede_factor": 0.7452,
+      "display_name": "Jordan",
+      "raw_matches": 272,
+      "weighted_goals_against_per_match": 0.896,
+      "weighted_goals_for_per_match": 1.431,
+      "weighted_matches": 55.03,
+      "weighted_points_rate": 0.552
+    },
+    "kabylia": {
+      "attack_factor": 0.9984,
+      "defense_concede_factor": 1.0992,
+      "display_name": "Kabylia",
+      "raw_matches": 6,
+      "weighted_goals_against_per_match": 2.497,
+      "weighted_goals_for_per_match": 1.336,
+      "weighted_matches": 2.4,
+      "weighted_points_rate": 0.278
+    },
+    "kazakhstan": {
+      "attack_factor": 0.7876,
+      "defense_concede_factor": 1.194,
+      "display_name": "Kazakhstan",
+      "raw_matches": 170,
+      "weighted_goals_against_per_match": 1.724,
+      "weighted_goals_for_per_match": 0.948,
+      "weighted_matches": 43.83,
+      "weighted_points_rate": 0.3217
+    },
+    "kenya": {
+      "attack_factor": 0.8369,
+      "defense_concede_factor": 0.8645,
+      "display_name": "Kenya",
+      "raw_matches": 199,
+      "weighted_goals_against_per_match": 1.078,
+      "weighted_goals_for_per_match": 1.022,
+      "weighted_matches": 35.85,
+      "weighted_points_rate": 0.4607
+    },
+    "kernow": {
+      "attack_factor": 1.0542,
+      "defense_concede_factor": 0.9805,
+      "display_name": "Kernow",
+      "raw_matches": 4,
+      "weighted_goals_against_per_match": 0.158,
+      "weighted_goals_for_per_match": 4.683,
+      "weighted_matches": 0.41,
+      "weighted_points_rate": 0.9648
+    },
+    "kiribati": {
+      "attack_factor": 0.9885,
+      "defense_concede_factor": 1.1371,
+      "display_name": "Kiribati",
+      "raw_matches": 4,
+      "weighted_goals_against_per_match": 11.506,
+      "weighted_goals_for_per_match": 0.501,
+      "weighted_matches": 0.34,
+      "weighted_points_rate": 0.0
+    },
+    "kosovo": {
+      "attack_factor": 1.0049,
+      "defense_concede_factor": 1.0425,
+      "display_name": "Kosovo",
+      "raw_matches": 71,
+      "weighted_goals_against_per_match": 1.438,
+      "weighted_goals_for_per_match": 1.364,
+      "weighted_matches": 38.91,
+      "weighted_points_rate": 0.4048
+    },
+    "kurdistan": {
+      "attack_factor": 1.025,
+      "defense_concede_factor": 0.9766,
+      "display_name": "Kurdistan",
+      "raw_matches": 5,
+      "weighted_goals_against_per_match": 0.34,
+      "weighted_goals_for_per_match": 2.438,
+      "weighted_matches": 0.58,
+      "weighted_points_rate": 0.8864
+    },
+    "kuwait": {
+      "attack_factor": 0.9586,
+      "defense_concede_factor": 0.9719,
+      "display_name": "Kuwait",
+      "raw_matches": 244,
+      "weighted_goals_against_per_match": 1.299,
+      "weighted_goals_for_per_match": 1.273,
+      "weighted_matches": 39.97,
+      "weighted_points_rate": 0.409
+    },
+    "kyrgyzstan": {
+      "attack_factor": 1.0996,
+      "defense_concede_factor": 1.0306,
+      "display_name": "Kyrgyzstan",
+      "raw_matches": 119,
+      "weighted_goals_against_per_match": 1.421,
+      "weighted_goals_for_per_match": 1.571,
+      "weighted_matches": 29.41,
+      "weighted_points_rate": 0.4781
+    },
+    "k\u00e1rp\u00e1talja": {
+      "attack_factor": 1.1278,
+      "defense_concede_factor": 0.9718,
+      "display_name": "K\u00e1rp\u00e1talja",
+      "raw_matches": 11,
+      "weighted_goals_against_per_match": 1.141,
+      "weighted_goals_for_per_match": 2.32,
+      "weighted_matches": 3.93,
+      "weighted_points_rate": 0.6315
+    },
+    "laos": {
+      "attack_factor": 0.7976,
+      "defense_concede_factor": 1.6371,
+      "display_name": "Laos",
+      "raw_matches": 121,
+      "weighted_goals_against_per_match": 2.762,
+      "weighted_goals_for_per_match": 0.907,
+      "weighted_matches": 28.48,
+      "weighted_points_rate": 0.221
+    },
+    "latvia": {
+      "attack_factor": 0.8617,
+      "defense_concede_factor": 1.0495,
+      "display_name": "Latvia",
+      "raw_matches": 196,
+      "weighted_goals_against_per_match": 1.445,
+      "weighted_goals_for_per_match": 1.099,
+      "weighted_matches": 49.61,
+      "weighted_points_rate": 0.3593
+    },
+    "lebanon": {
+      "attack_factor": 0.7544,
+      "defense_concede_factor": 0.9497,
+      "display_name": "Lebanon",
+      "raw_matches": 173,
+      "weighted_goals_against_per_match": 1.257,
+      "weighted_goals_for_per_match": 0.878,
+      "weighted_matches": 41.73,
+      "weighted_points_rate": 0.3348
+    },
+    "lesotho": {
+      "attack_factor": 0.7158,
+      "defense_concede_factor": 1.0419,
+      "display_name": "Lesotho",
+      "raw_matches": 149,
+      "weighted_goals_against_per_match": 1.439,
+      "weighted_goals_for_per_match": 0.776,
+      "weighted_matches": 35.89,
+      "weighted_points_rate": 0.3365
+    },
+    "liberia": {
+      "attack_factor": 0.7219,
+      "defense_concede_factor": 1.0534,
+      "display_name": "Liberia",
+      "raw_matches": 96,
+      "weighted_goals_against_per_match": 1.477,
+      "weighted_goals_for_per_match": 0.713,
+      "weighted_matches": 25.61,
+      "weighted_points_rate": 0.2933
+    },
+    "libya": {
+      "attack_factor": 0.8337,
+      "defense_concede_factor": 0.9418,
+      "display_name": "Libya",
+      "raw_matches": 165,
+      "weighted_goals_against_per_match": 1.235,
+      "weighted_goals_for_per_match": 1.013,
+      "weighted_matches": 35.05,
+      "weighted_points_rate": 0.4029
+    },
+    "liechtenstein": {
+      "attack_factor": 0.4752,
+      "defense_concede_factor": 1.7035,
+      "display_name": "Liechtenstein",
+      "raw_matches": 157,
+      "weighted_goals_against_per_match": 2.709,
+      "weighted_goals_for_per_match": 0.343,
+      "weighted_matches": 42.59,
+      "weighted_points_rate": 0.0993
+    },
+    "lithuania": {
+      "attack_factor": 0.5965,
+      "defense_concede_factor": 1.3303,
+      "display_name": "Lithuania",
+      "raw_matches": 179,
+      "weighted_goals_against_per_match": 1.97,
+      "weighted_goals_for_per_match": 0.602,
+      "weighted_matches": 47.84,
+      "weighted_points_rate": 0.2094
+    },
+    "luhansk pr": {
+      "attack_factor": 1.0188,
+      "defense_concede_factor": 1.0431,
+      "display_name": "Luhansk PR",
+      "raw_matches": 6,
+      "weighted_goals_against_per_match": 2.163,
+      "weighted_goals_for_per_match": 1.707,
+      "weighted_matches": 1.4,
+      "weighted_points_rate": 0.4374
+    },
+    "luxembourg": {
+      "attack_factor": 0.7856,
+      "defense_concede_factor": 1.222,
+      "display_name": "Luxembourg",
+      "raw_matches": 176,
+      "weighted_goals_against_per_match": 1.773,
+      "weighted_goals_for_per_match": 0.949,
+      "weighted_matches": 45.66,
+      "weighted_points_rate": 0.3301
+    },
+    "macau": {
+      "attack_factor": 0.909,
+      "defense_concede_factor": 1.2164,
+      "display_name": "Macau",
+      "raw_matches": 70,
+      "weighted_goals_against_per_match": 2.127,
+      "weighted_goals_for_per_match": 1.029,
+      "weighted_matches": 11.0,
+      "weighted_points_rate": 0.2869
+    },
+    "madagascar": {
+      "attack_factor": 0.868,
+      "defense_concede_factor": 1.0514,
+      "display_name": "Madagascar",
+      "raw_matches": 124,
+      "weighted_goals_against_per_match": 1.458,
+      "weighted_goals_for_per_match": 1.086,
+      "weighted_matches": 35.98,
+      "weighted_points_rate": 0.3607
+    },
+    "malawi": {
+      "attack_factor": 0.7039,
+      "defense_concede_factor": 0.9025,
+      "display_name": "Malawi",
+      "raw_matches": 203,
+      "weighted_goals_against_per_match": 1.173,
+      "weighted_goals_for_per_match": 0.804,
+      "weighted_matches": 48.28,
+      "weighted_points_rate": 0.3753
+    },
+    "malaysia": {
+      "attack_factor": 1.1779,
+      "defense_concede_factor": 1.0273,
+      "display_name": "Malaysia",
+      "raw_matches": 203,
+      "weighted_goals_against_per_match": 1.405,
+      "weighted_goals_for_per_match": 1.684,
+      "weighted_matches": 48.77,
+      "weighted_points_rate": 0.503
+    },
+    "maldives": {
+      "attack_factor": 0.9488,
+      "defense_concede_factor": 1.3175,
+      "display_name": "Maldives",
+      "raw_matches": 132,
+      "weighted_goals_against_per_match": 2.006,
+      "weighted_goals_for_per_match": 1.249,
+      "weighted_matches": 34.9,
+      "weighted_points_rate": 0.364
+    },
+    "mali": {
+      "attack_factor": 1.0131,
+      "defense_concede_factor": 0.6658,
+      "display_name": "Mali",
+      "raw_matches": 177,
+      "weighted_goals_against_per_match": 0.705,
+      "weighted_goals_for_per_match": 1.379,
+      "weighted_matches": 41.48,
+      "weighted_points_rate": 0.5767
+    },
+    "malta": {
+      "attack_factor": 0.7125,
+      "defense_concede_factor": 1.3584,
+      "display_name": "Malta",
+      "raw_matches": 174,
+      "weighted_goals_against_per_match": 2.031,
+      "weighted_goals_for_per_match": 0.811,
+      "weighted_matches": 45.43,
+      "weighted_points_rate": 0.2581
+    },
+    "martinique": {
+      "attack_factor": 0.9859,
+      "defense_concede_factor": 1.1211,
+      "display_name": "Martinique",
+      "raw_matches": 105,
+      "weighted_goals_against_per_match": 1.665,
+      "weighted_goals_for_per_match": 1.318,
+      "weighted_matches": 20.08,
+      "weighted_points_rate": 0.3934
+    },
+    "matabeleland": {
+      "attack_factor": 0.911,
+      "defense_concede_factor": 1.0007,
+      "display_name": "Matabeleland",
+      "raw_matches": 8,
+      "weighted_goals_against_per_match": 1.358,
+      "weighted_goals_for_per_match": 0.8,
+      "weighted_matches": 5.0,
+      "weighted_points_rate": 0.4534
+    },
+    "mauritania": {
+      "attack_factor": 0.7512,
+      "defense_concede_factor": 0.9562,
+      "display_name": "Mauritania",
+      "raw_matches": 101,
+      "weighted_goals_against_per_match": 1.267,
+      "weighted_goals_for_per_match": 0.857,
+      "weighted_matches": 37.98,
+      "weighted_points_rate": 0.4099
+    },
+    "mauritius": {
+      "attack_factor": 0.7778,
+      "defense_concede_factor": 1.1254,
+      "display_name": "Mauritius",
+      "raw_matches": 110,
+      "weighted_goals_against_per_match": 1.646,
+      "weighted_goals_for_per_match": 0.837,
+      "weighted_matches": 25.04,
+      "weighted_points_rate": 0.2578
+    },
+    "mayotte": {
+      "attack_factor": 1.0333,
+      "defense_concede_factor": 0.959,
+      "display_name": "Mayotte",
+      "raw_matches": 34,
+      "weighted_goals_against_per_match": 1.102,
+      "weighted_goals_for_per_match": 1.559,
+      "weighted_matches": 5.08,
+      "weighted_points_rate": 0.5448
+    },
+    "menorca": {
+      "attack_factor": 1.0925,
+      "defense_concede_factor": 0.9701,
+      "display_name": "Menorca",
+      "raw_matches": 21,
+      "weighted_goals_against_per_match": 1.085,
+      "weighted_goals_for_per_match": 2.184,
+      "weighted_matches": 3.2,
+      "weighted_points_rate": 0.576
+    },
+    "mexico": {
+      "attack_factor": 1.1131,
+      "defense_concede_factor": 0.7379,
+      "display_name": "Mexico",
+      "raw_matches": 341,
+      "weighted_goals_against_per_match": 0.893,
+      "weighted_goals_for_per_match": 1.553,
+      "weighted_matches": 79.05,
+      "weighted_points_rate": 0.6221
+    },
+    "moldova": {
+      "attack_factor": 0.6406,
+      "defense_concede_factor": 1.3257,
+      "display_name": "Moldova",
+      "raw_matches": 182,
+      "weighted_goals_against_per_match": 1.955,
+      "weighted_goals_for_per_match": 0.691,
+      "weighted_matches": 49.63,
+      "weighted_points_rate": 0.2323
+    },
+    "monaco": {
+      "attack_factor": 0.996,
+      "defense_concede_factor": 1.0813,
+      "display_name": "Monaco",
+      "raw_matches": 20,
+      "weighted_goals_against_per_match": 3.325,
+      "weighted_goals_for_per_match": 1.256,
+      "weighted_matches": 1.06,
+      "weighted_points_rate": 0.4184
+    },
+    "mongolia": {
+      "attack_factor": 0.9263,
+      "defense_concede_factor": 1.2696,
+      "display_name": "Mongolia",
+      "raw_matches": 60,
+      "weighted_goals_against_per_match": 2.051,
+      "weighted_goals_for_per_match": 1.163,
+      "weighted_matches": 19.79,
+      "weighted_points_rate": 0.3255
+    },
+    "montenegro": {
+      "attack_factor": 0.8971,
+      "defense_concede_factor": 0.966,
+      "display_name": "Montenegro",
+      "raw_matches": 133,
+      "weighted_goals_against_per_match": 1.289,
+      "weighted_goals_for_per_match": 1.157,
+      "weighted_matches": 43.81,
+      "weighted_points_rate": 0.3996
+    },
+    "montserrat": {
+      "attack_factor": 1.0727,
+      "defense_concede_factor": 1.1195,
+      "display_name": "Montserrat",
+      "raw_matches": 33,
+      "weighted_goals_against_per_match": 1.728,
+      "weighted_goals_for_per_match": 1.581,
+      "weighted_matches": 13.75,
+      "weighted_points_rate": 0.4747
+    },
+    "morocco": {
+      "attack_factor": 1.1758,
+      "defense_concede_factor": 0.5856,
+      "display_name": "Morocco",
+      "raw_matches": 204,
+      "weighted_goals_against_per_match": 0.625,
+      "weighted_goals_for_per_match": 1.663,
+      "weighted_matches": 60.09,
+      "weighted_points_rate": 0.6724
+    },
+    "mozambique": {
+      "attack_factor": 0.7295,
+      "defense_concede_factor": 0.8843,
+      "display_name": "Mozambique",
+      "raw_matches": 167,
+      "weighted_goals_against_per_match": 1.132,
+      "weighted_goals_for_per_match": 0.836,
+      "weighted_matches": 43.39,
+      "weighted_points_rate": 0.369
+    },
+    "myanmar": {
+      "attack_factor": 0.7978,
+      "defense_concede_factor": 1.6091,
+      "display_name": "Myanmar",
+      "raw_matches": 158,
+      "weighted_goals_against_per_match": 2.56,
+      "weighted_goals_for_per_match": 0.954,
+      "weighted_matches": 38.91,
+      "weighted_points_rate": 0.2658
+    },
+    "namibia": {
+      "attack_factor": 0.851,
+      "defense_concede_factor": 0.8763,
+      "display_name": "Namibia",
+      "raw_matches": 146,
+      "weighted_goals_against_per_match": 1.105,
+      "weighted_goals_for_per_match": 1.054,
+      "weighted_matches": 37.08,
+      "weighted_points_rate": 0.4521
+    },
+    "nepal": {
+      "attack_factor": 0.7365,
+      "defense_concede_factor": 1.2221,
+      "display_name": "Nepal",
+      "raw_matches": 121,
+      "weighted_goals_against_per_match": 1.814,
+      "weighted_goals_for_per_match": 0.808,
+      "weighted_matches": 34.03,
+      "weighted_points_rate": 0.3425
+    },
+    "netherlands": {
+      "attack_factor": 1.5007,
+      "defense_concede_factor": 0.75,
+      "display_name": "Netherlands",
+      "raw_matches": 238,
+      "weighted_goals_against_per_match": 0.911,
+      "weighted_goals_for_per_match": 2.241,
+      "weighted_matches": 58.35,
+      "weighted_points_rate": 0.7034
+    },
+    "new caledonia": {
+      "attack_factor": 1.1813,
+      "defense_concede_factor": 1.0578,
+      "display_name": "New Caledonia",
+      "raw_matches": 85,
+      "weighted_goals_against_per_match": 1.51,
+      "weighted_goals_for_per_match": 1.842,
+      "weighted_matches": 18.24,
+      "weighted_points_rate": 0.384
+    },
+    "new zealand": {
+      "attack_factor": 1.0987,
+      "defense_concede_factor": 0.8286,
+      "display_name": "New Zealand",
+      "raw_matches": 113,
+      "weighted_goals_against_per_match": 0.956,
+      "weighted_goals_for_per_match": 1.583,
+      "weighted_matches": 25.25,
+      "weighted_points_rate": 0.5297
+    },
+    "nicaragua": {
+      "attack_factor": 1.0631,
+      "defense_concede_factor": 0.9703,
+      "display_name": "Nicaragua",
+      "raw_matches": 111,
+      "weighted_goals_against_per_match": 1.292,
+      "weighted_goals_for_per_match": 1.486,
+      "weighted_matches": 33.04,
+      "weighted_points_rate": 0.4362
+    },
+    "niger": {
+      "attack_factor": 0.8478,
+      "defense_concede_factor": 1.2278,
+      "display_name": "Niger",
+      "raw_matches": 116,
+      "weighted_goals_against_per_match": 1.828,
+      "weighted_goals_for_per_match": 1.037,
+      "weighted_matches": 33.51,
+      "weighted_points_rate": 0.2967
+    },
+    "nigeria": {
+      "attack_factor": 1.0871,
+      "defense_concede_factor": 0.7768,
+      "display_name": "Nigeria",
+      "raw_matches": 220,
+      "weighted_goals_against_per_match": 0.945,
+      "weighted_goals_for_per_match": 1.514,
+      "weighted_matches": 50.77,
+      "weighted_points_rate": 0.5633
+    },
+    "north korea": {
+      "attack_factor": 1.0292,
+      "defense_concede_factor": 1.0077,
+      "display_name": "North Korea",
+      "raw_matches": 182,
+      "weighted_goals_against_per_match": 1.372,
+      "weighted_goals_for_per_match": 1.422,
+      "weighted_matches": 25.31,
+      "weighted_points_rate": 0.5025
+    },
+    "north macedonia": {
+      "attack_factor": 1.0211,
+      "defense_concede_factor": 0.9434,
+      "display_name": "North Macedonia",
+      "raw_matches": 180,
+      "weighted_goals_against_per_match": 1.25,
+      "weighted_goals_for_per_match": 1.393,
+      "weighted_matches": 50.29,
+      "weighted_points_rate": 0.4531
+    },
+    "northern cyprus": {
+      "attack_factor": 1.267,
+      "defense_concede_factor": 0.8941,
+      "display_name": "Northern Cyprus",
+      "raw_matches": 31,
+      "weighted_goals_against_per_match": 0.778,
+      "weighted_goals_for_per_match": 2.806,
+      "weighted_matches": 5.97,
+      "weighted_points_rate": 0.6809
+    },
+    "northern ireland": {
+      "attack_factor": 0.8223,
+      "defense_concede_factor": 0.9357,
+      "display_name": "Northern Ireland",
+      "raw_matches": 172,
+      "weighted_goals_against_per_match": 1.232,
+      "weighted_goals_for_per_match": 1.016,
+      "weighted_matches": 44.6,
+      "weighted_points_rate": 0.381
+    },
+    "northern mariana islands": {
+      "attack_factor": 0.9023,
+      "defense_concede_factor": 1.3776,
+      "display_name": "Northern Mariana Islands",
+      "raw_matches": 21,
+      "weighted_goals_against_per_match": 4.751,
+      "weighted_goals_for_per_match": 0.475,
+      "weighted_matches": 3.19,
+      "weighted_points_rate": 0.1003
+    },
+    "norway": {
+      "attack_factor": 1.1095,
+      "defense_concede_factor": 0.8281,
+      "display_name": "Norway",
+      "raw_matches": 198,
+      "weighted_goals_against_per_match": 1.033,
+      "weighted_goals_for_per_match": 1.559,
+      "weighted_matches": 47.46,
+      "weighted_points_rate": 0.5564
+    },
+    "occitania": {
+      "attack_factor": 1.159,
+      "defense_concede_factor": 0.9593,
+      "display_name": "Occitania",
+      "raw_matches": 33,
+      "weighted_goals_against_per_match": 0.921,
+      "weighted_goals_for_per_match": 3.046,
+      "weighted_matches": 2.62,
+      "weighted_points_rate": 0.6953
+    },
+    "oman": {
+      "attack_factor": 0.9796,
+      "defense_concede_factor": 0.7477,
+      "display_name": "Oman",
+      "raw_matches": 272,
+      "weighted_goals_against_per_match": 0.905,
+      "weighted_goals_for_per_match": 1.318,
+      "weighted_matches": 57.03,
+      "weighted_points_rate": 0.5398
+    },
+    "orkney": {
+      "attack_factor": 0.9819,
+      "defense_concede_factor": 1.0968,
+      "display_name": "Orkney",
+      "raw_matches": 13,
+      "weighted_goals_against_per_match": 2.175,
+      "weighted_goals_for_per_match": 1.201,
+      "weighted_matches": 3.42,
+      "weighted_points_rate": 0.3427
+    },
+    "padania": {
+      "attack_factor": 1.3301,
+      "defense_concede_factor": 0.8644,
+      "display_name": "Padania",
+      "raw_matches": 45,
+      "weighted_goals_against_per_match": 0.85,
+      "weighted_goals_for_per_match": 2.581,
+      "weighted_matches": 10.31,
+      "weighted_points_rate": 0.6384
+    },
+    "pakistan": {
+      "attack_factor": 0.8748,
+      "defense_concede_factor": 1.0492,
+      "display_name": "Pakistan",
+      "raw_matches": 75,
+      "weighted_goals_against_per_match": 1.555,
+      "weighted_goals_for_per_match": 0.841,
+      "weighted_matches": 8.89,
+      "weighted_points_rate": 0.2584
+    },
+    "palestine": {
+      "attack_factor": 1.1738,
+      "defense_concede_factor": 0.907,
+      "display_name": "Palestine",
+      "raw_matches": 157,
+      "weighted_goals_against_per_match": 1.163,
+      "weighted_goals_for_per_match": 1.711,
+      "weighted_matches": 34.84,
+      "weighted_points_rate": 0.5226
+    },
+    "panama": {
+      "attack_factor": 1.0437,
+      "defense_concede_factor": 0.9822,
+      "display_name": "Panama",
+      "raw_matches": 264,
+      "weighted_goals_against_per_match": 1.323,
+      "weighted_goals_for_per_match": 1.431,
+      "weighted_matches": 63.59,
+      "weighted_points_rate": 0.4711
+    },
+    "panjab": {
+      "attack_factor": 1.2617,
+      "defense_concede_factor": 1.021,
+      "display_name": "Panjab",
+      "raw_matches": 19,
+      "weighted_goals_against_per_match": 1.474,
+      "weighted_goals_for_per_match": 2.856,
+      "weighted_matches": 5.56,
+      "weighted_points_rate": 0.5104
+    },
+    "papua new guinea": {
+      "attack_factor": 1.1764,
+      "defense_concede_factor": 0.9252,
+      "display_name": "Papua New Guinea",
+      "raw_matches": 36,
+      "weighted_goals_against_per_match": 1.11,
+      "weighted_goals_for_per_match": 1.931,
+      "weighted_matches": 12.73,
+      "weighted_points_rate": 0.5817
+    },
+    "paraguay": {
+      "attack_factor": 0.758,
+      "defense_concede_factor": 1.0167,
+      "display_name": "Paraguay",
+      "raw_matches": 219,
+      "weighted_goals_against_per_match": 1.385,
+      "weighted_goals_for_per_match": 0.907,
+      "weighted_matches": 49.38,
+      "weighted_points_rate": 0.346
+    },
+    "peru": {
+      "attack_factor": 0.899,
+      "defense_concede_factor": 0.881,
+      "display_name": "Peru",
+      "raw_matches": 221,
+      "weighted_goals_against_per_match": 1.142,
+      "weighted_goals_for_per_match": 1.174,
+      "weighted_matches": 57.13,
+      "weighted_points_rate": 0.4827
+    },
+    "philippines": {
+      "attack_factor": 1.0504,
+      "defense_concede_factor": 1.0752,
+      "display_name": "Philippines",
+      "raw_matches": 162,
+      "weighted_goals_against_per_match": 1.503,
+      "weighted_goals_for_per_match": 1.454,
+      "weighted_matches": 39.2,
+      "weighted_points_rate": 0.4158
+    },
+    "poland": {
+      "attack_factor": 1.2104,
+      "defense_concede_factor": 0.8885,
+      "display_name": "Poland",
+      "raw_matches": 238,
+      "weighted_goals_against_per_match": 1.156,
+      "weighted_goals_for_per_match": 1.728,
+      "weighted_matches": 57.59,
+      "weighted_points_rate": 0.5398
+    },
+    "portugal": {
+      "attack_factor": 1.4392,
+      "defense_concede_factor": 0.6821,
+      "display_name": "Portugal",
+      "raw_matches": 246,
+      "weighted_goals_against_per_match": 0.794,
+      "weighted_goals_for_per_match": 2.127,
+      "weighted_matches": 63.57,
+      "weighted_points_rate": 0.6723
+    },
+    "provence": {
+      "attack_factor": 1.1849,
+      "defense_concede_factor": 1.0589,
+      "display_name": "Provence",
+      "raw_matches": 21,
+      "weighted_goals_against_per_match": 2.326,
+      "weighted_goals_for_per_match": 4.408,
+      "weighted_matches": 1.61,
+      "weighted_points_rate": 0.3989
+    },
+    "puerto rico": {
+      "attack_factor": 1.1779,
+      "defense_concede_factor": 1.0062,
+      "display_name": "Puerto Rico",
+      "raw_matches": 62,
+      "weighted_goals_against_per_match": 1.372,
+      "weighted_goals_for_per_match": 1.871,
+      "weighted_matches": 15.71,
+      "weighted_points_rate": 0.4708
+    },
+    "qatar": {
+      "attack_factor": 1.1322,
+      "defense_concede_factor": 0.8686,
+      "display_name": "Qatar",
+      "raw_matches": 293,
+      "weighted_goals_against_per_match": 1.123,
+      "weighted_goals_for_per_match": 1.587,
+      "weighted_matches": 66.55,
+      "weighted_points_rate": 0.552
+    },
+    "raetia": {
+      "attack_factor": 1.0072,
+      "defense_concede_factor": 1.4176,
+      "display_name": "Raetia",
+      "raw_matches": 24,
+      "weighted_goals_against_per_match": 3.683,
+      "weighted_goals_for_per_match": 1.394,
+      "weighted_matches": 5.77,
+      "weighted_points_rate": 0.2195
+    },
+    "republic of ireland": {
+      "attack_factor": 0.9032,
+      "defense_concede_factor": 0.7864,
+      "display_name": "Republic of Ireland",
+      "raw_matches": 202,
+      "weighted_goals_against_per_match": 0.958,
+      "weighted_goals_for_per_match": 1.174,
+      "weighted_matches": 48.69,
+      "weighted_points_rate": 0.4436
+    },
+    "republic of st pauli": {
+      "attack_factor": 1.0046,
+      "defense_concede_factor": 0.9996,
+      "display_name": "Republic of St. Pauli",
+      "raw_matches": 4,
+      "weighted_goals_against_per_match": 1.251,
+      "weighted_goals_for_per_match": 2.499,
+      "weighted_matches": 0.1,
+      "weighted_points_rate": 0.333
+    },
+    "rhodes": {
+      "attack_factor": 1.0057,
+      "defense_concede_factor": 0.9915,
+      "display_name": "Rhodes",
+      "raw_matches": 10,
+      "weighted_goals_against_per_match": 0.919,
+      "weighted_goals_for_per_match": 1.646,
+      "weighted_matches": 0.49,
+      "weighted_points_rate": 0.6682
+    },
+    "romani people": {
+      "attack_factor": 1.0132,
+      "defense_concede_factor": 1.0802,
+      "display_name": "Romani people",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 3.241,
+      "weighted_goals_for_per_match": 1.664,
+      "weighted_matches": 1.1,
+      "weighted_points_rate": 0.2038
+    },
+    "romania": {
+      "attack_factor": 1.0282,
+      "defense_concede_factor": 0.8759,
+      "display_name": "Romania",
+      "raw_matches": 193,
+      "weighted_goals_against_per_match": 1.123,
+      "weighted_goals_for_per_match": 1.406,
+      "weighted_matches": 48.22,
+      "weighted_points_rate": 0.4916
+    },
+    "russia": {
+      "attack_factor": 1.1813,
+      "defense_concede_factor": 0.8422,
+      "display_name": "Russia",
+      "raw_matches": 198,
+      "weighted_goals_against_per_match": 1.056,
+      "weighted_goals_for_per_match": 1.696,
+      "weighted_matches": 45.79,
+      "weighted_points_rate": 0.5709
+    },
+    "rwanda": {
+      "attack_factor": 0.807,
+      "defense_concede_factor": 0.8343,
+      "display_name": "Rwanda",
+      "raw_matches": 182,
+      "weighted_goals_against_per_match": 1.014,
+      "weighted_goals_for_per_match": 0.958,
+      "weighted_matches": 34.86,
+      "weighted_points_rate": 0.3635
+    },
+    "r\u00e9union": {
+      "attack_factor": 1.1319,
+      "defense_concede_factor": 0.8648,
+      "display_name": "R\u00e9union",
+      "raw_matches": 36,
+      "weighted_goals_against_per_match": 0.504,
+      "weighted_goals_for_per_match": 2.182,
+      "weighted_matches": 4.94,
+      "weighted_points_rate": 0.7372
+    },
+    "saare county": {
+      "attack_factor": 1.0354,
+      "defense_concede_factor": 1.0823,
+      "display_name": "Saare County",
+      "raw_matches": 23,
+      "weighted_goals_against_per_match": 2.197,
+      "weighted_goals_for_per_match": 1.717,
+      "weighted_matches": 2.74,
+      "weighted_points_rate": 0.3215
+    },
+    "saint barth\u00e9lemy": {
+      "attack_factor": 1.0951,
+      "defense_concede_factor": 1.0976,
+      "display_name": "Saint Barth\u00e9lemy",
+      "raw_matches": 8,
+      "weighted_goals_against_per_match": 2.706,
+      "weighted_goals_for_per_match": 2.67,
+      "weighted_matches": 1.95,
+      "weighted_points_rate": 0.5206
+    },
+    "saint helena": {
+      "attack_factor": 0.9698,
+      "defense_concede_factor": 1.3196,
+      "display_name": "Saint Helena",
+      "raw_matches": 4,
+      "weighted_goals_against_per_match": 5.921,
+      "weighted_goals_for_per_match": 0.922,
+      "weighted_matches": 1.88,
+      "weighted_points_rate": 0.0
+    },
+    "saint kitts and nevis": {
+      "attack_factor": 1.0778,
+      "defense_concede_factor": 1.0097,
+      "display_name": "Saint Kitts and Nevis",
+      "raw_matches": 104,
+      "weighted_goals_against_per_match": 1.378,
+      "weighted_goals_for_per_match": 1.547,
+      "weighted_matches": 21.56,
+      "weighted_points_rate": 0.4613
+    },
+    "saint lucia": {
+      "attack_factor": 0.8847,
+      "defense_concede_factor": 0.9858,
+      "display_name": "Saint Lucia",
+      "raw_matches": 77,
+      "weighted_goals_against_per_match": 1.312,
+      "weighted_goals_for_per_match": 1.009,
+      "weighted_matches": 14.9,
+      "weighted_points_rate": 0.4552
+    },
+    "saint martin": {
+      "attack_factor": 0.9169,
+      "defense_concede_factor": 1.2927,
+      "display_name": "Saint Martin",
+      "raw_matches": 37,
+      "weighted_goals_against_per_match": 2.457,
+      "weighted_goals_for_per_match": 1.041,
+      "weighted_matches": 10.09,
+      "weighted_points_rate": 0.2907
+    },
+    "saint pierre and miquelon": {
+      "attack_factor": 0.9746,
+      "defense_concede_factor": 1.2536,
+      "display_name": "Saint Pierre and Miquelon",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 11.485,
+      "weighted_goals_for_per_match": 0.34,
+      "weighted_matches": 0.63,
+      "weighted_points_rate": 0.0
+    },
+    "saint vincent and the grenadines": {
+      "attack_factor": 0.9077,
+      "defense_concede_factor": 1.4745,
+      "display_name": "Saint Vincent and the Grenadines",
+      "raw_matches": 81,
+      "weighted_goals_against_per_match": 2.481,
+      "weighted_goals_for_per_match": 1.135,
+      "weighted_matches": 23.86,
+      "weighted_points_rate": 0.3066
+    },
+    "samoa": {
+      "attack_factor": 0.9354,
+      "defense_concede_factor": 1.4247,
+      "display_name": "Samoa",
+      "raw_matches": 27,
+      "weighted_goals_against_per_match": 4.518,
+      "weighted_goals_for_per_match": 0.873,
+      "weighted_matches": 4.0,
+      "weighted_points_rate": 0.3269
+    },
+    "san marino": {
+      "attack_factor": 0.45,
+      "defense_concede_factor": 1.85,
+      "display_name": "San Marino",
+      "raw_matches": 127,
+      "weighted_goals_against_per_match": 3.715,
+      "weighted_goals_for_per_match": 0.122,
+      "weighted_matches": 40.43,
+      "weighted_points_rate": 0.0261
+    },
+    "saudi arabia": {
+      "attack_factor": 0.9885,
+      "defense_concede_factor": 0.7667,
+      "display_name": "Saudi Arabia",
+      "raw_matches": 286,
+      "weighted_goals_against_per_match": 0.943,
+      "weighted_goals_for_per_match": 1.334,
+      "weighted_matches": 63.68,
+      "weighted_points_rate": 0.5338
+    },
+    "scotland": {
+      "attack_factor": 1.0267,
+      "defense_concede_factor": 0.8902,
+      "display_name": "Scotland",
+      "raw_matches": 170,
+      "weighted_goals_against_per_match": 1.15,
+      "weighted_goals_for_per_match": 1.404,
+      "weighted_matches": 48.51,
+      "weighted_points_rate": 0.5443
+    },
+    "sealand": {
+      "attack_factor": 1.0456,
+      "defense_concede_factor": 1.0617,
+      "display_name": "Sealand",
+      "raw_matches": 12,
+      "weighted_goals_against_per_match": 2.702,
+      "weighted_goals_for_per_match": 2.351,
+      "weighted_matches": 1.19,
+      "weighted_points_rate": 0.4809
+    },
+    "senegal": {
+      "attack_factor": 1.1006,
+      "defense_concede_factor": 0.678,
+      "display_name": "Senegal",
+      "raw_matches": 205,
+      "weighted_goals_against_per_match": 0.787,
+      "weighted_goals_for_per_match": 1.531,
+      "weighted_matches": 60.82,
+      "weighted_points_rate": 0.662
+    },
+    "serbia": {
+      "attack_factor": 1.2306,
+      "defense_concede_factor": 0.9115,
+      "display_name": "Serbia",
+      "raw_matches": 206,
+      "weighted_goals_against_per_match": 1.193,
+      "weighted_goals_for_per_match": 1.773,
+      "weighted_matches": 52.62,
+      "weighted_points_rate": 0.5718
+    },
+    "seychelles": {
+      "attack_factor": 0.6532,
+      "defense_concede_factor": 1.4032,
+      "display_name": "Seychelles",
+      "raw_matches": 101,
+      "weighted_goals_against_per_match": 2.241,
+      "weighted_goals_for_per_match": 0.591,
+      "weighted_matches": 28.83,
+      "weighted_points_rate": 0.1731
+    },
+    "shetland": {
+      "attack_factor": 1.0847,
+      "defense_concede_factor": 1.1363,
+      "display_name": "Shetland",
+      "raw_matches": 22,
+      "weighted_goals_against_per_match": 2.254,
+      "weighted_goals_for_per_match": 1.914,
+      "weighted_matches": 4.64,
+      "weighted_points_rate": 0.3099
+    },
+    "sierra leone": {
+      "attack_factor": 0.7896,
+      "defense_concede_factor": 1.0299,
+      "display_name": "Sierra Leone",
+      "raw_matches": 85,
+      "weighted_goals_against_per_match": 1.425,
+      "weighted_goals_for_per_match": 0.852,
+      "weighted_matches": 23.6,
+      "weighted_points_rate": 0.3387
+    },
+    "singapore": {
+      "attack_factor": 0.9835,
+      "defense_concede_factor": 1.1473,
+      "display_name": "Singapore",
+      "raw_matches": 219,
+      "weighted_goals_against_per_match": 1.633,
+      "weighted_goals_for_per_match": 1.323,
+      "weighted_matches": 44.96,
+      "weighted_points_rate": 0.4247
+    },
+    "sint maarten": {
+      "attack_factor": 1.1553,
+      "defense_concede_factor": 1.4915,
+      "display_name": "Sint Maarten",
+      "raw_matches": 17,
+      "weighted_goals_against_per_match": 3.302,
+      "weighted_goals_for_per_match": 1.97,
+      "weighted_matches": 9.34,
+      "weighted_points_rate": 0.2726
+    },
+    "slovakia": {
+      "attack_factor": 0.9795,
+      "defense_concede_factor": 0.8821,
+      "display_name": "Slovakia",
+      "raw_matches": 201,
+      "weighted_goals_against_per_match": 1.138,
+      "weighted_goals_for_per_match": 1.316,
+      "weighted_matches": 50.59,
+      "weighted_points_rate": 0.4593
+    },
+    "slovenia": {
+      "attack_factor": 0.9678,
+      "defense_concede_factor": 0.8275,
+      "display_name": "Slovenia",
+      "raw_matches": 175,
+      "weighted_goals_against_per_match": 1.029,
+      "weighted_goals_for_per_match": 1.293,
+      "weighted_matches": 45.84,
+      "weighted_points_rate": 0.4779
+    },
+    "solomon islands": {
+      "attack_factor": 1.3505,
+      "defense_concede_factor": 1.0872,
+      "display_name": "Solomon Islands",
+      "raw_matches": 82,
+      "weighted_goals_against_per_match": 1.577,
+      "weighted_goals_for_per_match": 2.251,
+      "weighted_matches": 20.25,
+      "weighted_points_rate": 0.5259
+    },
+    "somalia": {
+      "attack_factor": 0.7968,
+      "defense_concede_factor": 1.2405,
+      "display_name": "Somalia",
+      "raw_matches": 49,
+      "weighted_goals_against_per_match": 2.424,
+      "weighted_goals_for_per_match": 0.45,
+      "weighted_matches": 7.87,
+      "weighted_points_rate": 0.0928
+    },
+    "somaliland": {
+      "attack_factor": 1.0552,
+      "defense_concede_factor": 1.1274,
+      "display_name": "Somaliland",
+      "raw_matches": 6,
+      "weighted_goals_against_per_match": 3.641,
+      "weighted_goals_for_per_match": 2.344,
+      "weighted_matches": 1.47,
+      "weighted_points_rate": 0.3679
+    },
+    "south africa": {
+      "attack_factor": 0.9762,
+      "defense_concede_factor": 0.6841,
+      "display_name": "South Africa",
+      "raw_matches": 256,
+      "weighted_goals_against_per_match": 0.78,
+      "weighted_goals_for_per_match": 1.311,
+      "weighted_matches": 52.64,
+      "weighted_points_rate": 0.5832
+    },
+    "south korea": {
+      "attack_factor": 1.1802,
+      "defense_concede_factor": 0.7417,
+      "display_name": "South Korea",
+      "raw_matches": 281,
+      "weighted_goals_against_per_match": 0.899,
+      "weighted_goals_for_per_match": 1.671,
+      "weighted_matches": 63.37,
+      "weighted_points_rate": 0.6385
+    },
+    "south ossetia": {
+      "attack_factor": 1.0647,
+      "defense_concede_factor": 1.1007,
+      "display_name": "South Ossetia",
+      "raw_matches": 17,
+      "weighted_goals_against_per_match": 1.94,
+      "weighted_goals_for_per_match": 1.731,
+      "weighted_matches": 5.46,
+      "weighted_points_rate": 0.4457
+    },
+    "south sudan": {
+      "attack_factor": 0.7504,
+      "defense_concede_factor": 1.1118,
+      "display_name": "South Sudan",
+      "raw_matches": 53,
+      "weighted_goals_against_per_match": 1.631,
+      "weighted_goals_for_per_match": 0.735,
+      "weighted_matches": 21.62,
+      "weighted_points_rate": 0.2627
+    },
+    "spain": {
+      "attack_factor": 1.4829,
+      "defense_concede_factor": 0.6515,
+      "display_name": "Spain",
+      "raw_matches": 254,
+      "weighted_goals_against_per_match": 0.741,
+      "weighted_goals_for_per_match": 2.204,
+      "weighted_matches": 62.22,
+      "weighted_points_rate": 0.689
+    },
+    "sri lanka": {
+      "attack_factor": 0.774,
+      "defense_concede_factor": 1.4099,
+      "display_name": "Sri Lanka",
+      "raw_matches": 107,
+      "weighted_goals_against_per_match": 2.298,
+      "weighted_goals_for_per_match": 0.834,
+      "weighted_matches": 25.7,
+      "weighted_points_rate": 0.1702
+    },
+    "sudan": {
+      "attack_factor": 0.7492,
+      "defense_concede_factor": 1.0568,
+      "display_name": "Sudan",
+      "raw_matches": 200,
+      "weighted_goals_against_per_match": 1.464,
+      "weighted_goals_for_per_match": 0.87,
+      "weighted_matches": 42.32,
+      "weighted_points_rate": 0.318
+    },
+    "suriname": {
+      "attack_factor": 1.2187,
+      "defense_concede_factor": 0.9801,
+      "display_name": "Suriname",
+      "raw_matches": 105,
+      "weighted_goals_against_per_match": 1.307,
+      "weighted_goals_for_per_match": 1.872,
+      "weighted_matches": 24.06,
+      "weighted_points_rate": 0.5348
+    },
+    "sweden": {
+      "attack_factor": 1.0593,
+      "defense_concede_factor": 0.8411,
+      "display_name": "Sweden",
+      "raw_matches": 247,
+      "weighted_goals_against_per_match": 1.072,
+      "weighted_goals_for_per_match": 1.459,
+      "weighted_matches": 58.37,
+      "weighted_points_rate": 0.5395
+    },
+    "switzerland": {
+      "attack_factor": 1.1802,
+      "defense_concede_factor": 0.8764,
+      "display_name": "Switzerland",
+      "raw_matches": 212,
+      "weighted_goals_against_per_match": 1.135,
+      "weighted_goals_for_per_match": 1.674,
+      "weighted_matches": 58.04,
+      "weighted_points_rate": 0.5691
+    },
+    "syria": {
+      "attack_factor": 0.9399,
+      "defense_concede_factor": 0.9873,
+      "display_name": "Syria",
+      "raw_matches": 226,
+      "weighted_goals_against_per_match": 1.331,
+      "weighted_goals_for_per_match": 1.244,
+      "weighted_matches": 51.84,
+      "weighted_points_rate": 0.3736
+    },
+    "sz\u00e9kely land": {
+      "attack_factor": 1.1021,
+      "defense_concede_factor": 1.1988,
+      "display_name": "Sz\u00e9kely Land",
+      "raw_matches": 25,
+      "weighted_goals_against_per_match": 2.193,
+      "weighted_goals_for_per_match": 1.785,
+      "weighted_matches": 8.5,
+      "weighted_points_rate": 0.3079
+    },
+    "s\u00e1pmi": {
+      "attack_factor": 1.0565,
+      "defense_concede_factor": 1.1306,
+      "display_name": "S\u00e1pmi",
+      "raw_matches": 28,
+      "weighted_goals_against_per_match": 2.161,
+      "weighted_goals_for_per_match": 1.703,
+      "weighted_matches": 5.05,
+      "weighted_points_rate": 0.3409
+    },
+    "s\u00e3o tom\u00e9 and pr\u00edncipe": {
+      "attack_factor": 0.8415,
+      "defense_concede_factor": 1.5673,
+      "display_name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+      "raw_matches": 33,
+      "weighted_goals_against_per_match": 3.113,
+      "weighted_goals_for_per_match": 0.863,
+      "weighted_matches": 13.96,
+      "weighted_points_rate": 0.1537
+    },
+    "tahiti": {
+      "attack_factor": 1.1739,
+      "defense_concede_factor": 1.0966,
+      "display_name": "Tahiti",
+      "raw_matches": 63,
+      "weighted_goals_against_per_match": 1.692,
+      "weighted_goals_for_per_match": 1.963,
+      "weighted_matches": 11.34,
+      "weighted_points_rate": 0.3915
+    },
+    "taiwan": {
+      "attack_factor": 0.8423,
+      "defense_concede_factor": 1.4545,
+      "display_name": "Taiwan",
+      "raw_matches": 92,
+      "weighted_goals_against_per_match": 2.472,
+      "weighted_goals_for_per_match": 0.966,
+      "weighted_matches": 22.04,
+      "weighted_points_rate": 0.2835
+    },
+    "tajikistan": {
+      "attack_factor": 0.9715,
+      "defense_concede_factor": 0.9086,
+      "display_name": "Tajikistan",
+      "raw_matches": 131,
+      "weighted_goals_against_per_match": 1.162,
+      "weighted_goals_for_per_match": 1.294,
+      "weighted_matches": 32.41,
+      "weighted_points_rate": 0.4658
+    },
+    "tamil eelam": {
+      "attack_factor": 1.1384,
+      "defense_concede_factor": 1.2044,
+      "display_name": "Tamil Eelam",
+      "raw_matches": 22,
+      "weighted_goals_against_per_match": 2.539,
+      "weighted_goals_for_per_match": 2.156,
+      "weighted_matches": 5.49,
+      "weighted_points_rate": 0.4646
+    },
+    "tanzania": {
+      "attack_factor": 0.7949,
+      "defense_concede_factor": 0.9402,
+      "display_name": "Tanzania",
+      "raw_matches": 206,
+      "weighted_goals_against_per_match": 1.238,
+      "weighted_goals_for_per_match": 0.955,
+      "weighted_matches": 41.33,
+      "weighted_points_rate": 0.3737
+    },
+    "thailand": {
+      "attack_factor": 1.2197,
+      "defense_concede_factor": 0.7883,
+      "display_name": "Thailand",
+      "raw_matches": 223,
+      "weighted_goals_against_per_match": 0.969,
+      "weighted_goals_for_per_match": 1.753,
+      "weighted_matches": 52.48,
+      "weighted_points_rate": 0.5753
+    },
+    "tibet": {
+      "attack_factor": 1.0322,
+      "defense_concede_factor": 1.4261,
+      "display_name": "Tibet",
+      "raw_matches": 15,
+      "weighted_goals_against_per_match": 5.091,
+      "weighted_goals_for_per_match": 1.636,
+      "weighted_matches": 3.29,
+      "weighted_points_rate": 0.1554
+    },
+    "timor leste": {
+      "attack_factor": 0.7667,
+      "defense_concede_factor": 1.7707,
+      "display_name": "Timor-Leste",
+      "raw_matches": 69,
+      "weighted_goals_against_per_match": 3.363,
+      "weighted_goals_for_per_match": 0.746,
+      "weighted_matches": 19.46,
+      "weighted_points_rate": 0.1257
+    },
+    "togo": {
+      "attack_factor": 0.8338,
+      "defense_concede_factor": 0.9536,
+      "display_name": "Togo",
+      "raw_matches": 158,
+      "weighted_goals_against_per_match": 1.257,
+      "weighted_goals_for_per_match": 1.007,
+      "weighted_matches": 33.28,
+      "weighted_points_rate": 0.3516
+    },
+    "tonga": {
+      "attack_factor": 0.8792,
+      "defense_concede_factor": 1.6049,
+      "display_name": "Tonga",
+      "raw_matches": 25,
+      "weighted_goals_against_per_match": 5.266,
+      "weighted_goals_for_per_match": 0.572,
+      "weighted_matches": 4.77,
+      "weighted_points_rate": 0.0408
+    },
+    "trinidad and tobago": {
+      "attack_factor": 1.0873,
+      "defense_concede_factor": 1.0386,
+      "display_name": "Trinidad and Tobago",
+      "raw_matches": 245,
+      "weighted_goals_against_per_match": 1.428,
+      "weighted_goals_for_per_match": 1.521,
+      "weighted_matches": 43.12,
+      "weighted_points_rate": 0.4145
+    },
+    "tunisia": {
+      "attack_factor": 1.0521,
+      "defense_concede_factor": 0.6665,
+      "display_name": "Tunisia",
+      "raw_matches": 240,
+      "weighted_goals_against_per_match": 0.767,
+      "weighted_goals_for_per_match": 1.446,
+      "weighted_matches": 62.51,
+      "weighted_points_rate": 0.6099
+    },
+    "turkey": {
+      "attack_factor": 1.2488,
+      "defense_concede_factor": 0.9411,
+      "display_name": "Turkey",
+      "raw_matches": 218,
+      "weighted_goals_against_per_match": 1.247,
+      "weighted_goals_for_per_match": 1.805,
+      "weighted_matches": 53.24,
+      "weighted_points_rate": 0.5669
+    },
+    "turkmenistan": {
+      "attack_factor": 0.9667,
+      "defense_concede_factor": 1.1379,
+      "display_name": "Turkmenistan",
+      "raw_matches": 94,
+      "weighted_goals_against_per_match": 1.719,
+      "weighted_goals_for_per_match": 1.266,
+      "weighted_matches": 18.9,
+      "weighted_points_rate": 0.4101
+    },
+    "turks and caicos islands": {
+      "attack_factor": 0.9868,
+      "defense_concede_factor": 1.85,
+      "display_name": "Turks and Caicos Islands",
+      "raw_matches": 33,
+      "weighted_goals_against_per_match": 4.7,
+      "weighted_goals_for_per_match": 1.313,
+      "weighted_matches": 13.94,
+      "weighted_points_rate": 0.2622
+    },
+    "tuvalu": {
+      "attack_factor": 0.8867,
+      "defense_concede_factor": 1.85,
+      "display_name": "Tuvalu",
+      "raw_matches": 25,
+      "weighted_goals_against_per_match": 6.261,
+      "weighted_goals_for_per_match": 0.804,
+      "weighted_matches": 6.97,
+      "weighted_points_rate": 0.1533
+    },
+    "two sicilies": {
+      "attack_factor": 0.9903,
+      "defense_concede_factor": 1.0073,
+      "display_name": "Two Sicilies",
+      "raw_matches": 4,
+      "weighted_goals_against_per_match": 2.0,
+      "weighted_goals_for_per_match": 0.499,
+      "weighted_matches": 0.28,
+      "weighted_points_rate": 0.2498
+    },
+    "uganda": {
+      "attack_factor": 0.7621,
+      "defense_concede_factor": 0.7113,
+      "display_name": "Uganda",
+      "raw_matches": 235,
+      "weighted_goals_against_per_match": 0.818,
+      "weighted_goals_for_per_match": 0.913,
+      "weighted_matches": 48.63,
+      "weighted_points_rate": 0.4544
+    },
+    "ukraine": {
+      "attack_factor": 1.0512,
+      "defense_concede_factor": 0.8578,
+      "display_name": "Ukraine",
+      "raw_matches": 203,
+      "weighted_goals_against_per_match": 1.094,
+      "weighted_goals_for_per_match": 1.448,
+      "weighted_matches": 51.01,
+      "weighted_points_rate": 0.5542
+    },
+    "united arab emirates": {
+      "attack_factor": 1.0758,
+      "defense_concede_factor": 0.8736,
+      "display_name": "United Arab Emirates",
+      "raw_matches": 259,
+      "weighted_goals_against_per_match": 1.128,
+      "weighted_goals_for_per_match": 1.489,
+      "weighted_matches": 56.67,
+      "weighted_points_rate": 0.5155
+    },
+    "united koreans in japan": {
+      "attack_factor": 1.0132,
+      "defense_concede_factor": 0.9372,
+      "display_name": "United Koreans in Japan",
+      "raw_matches": 12,
+      "weighted_goals_against_per_match": 0.872,
+      "weighted_goals_for_per_match": 1.455,
+      "weighted_matches": 3.85,
+      "weighted_points_rate": 0.4025
+    },
+    "united states": {
+      "attack_factor": 1.2487,
+      "defense_concede_factor": 0.7103,
+      "display_name": "United States",
+      "raw_matches": 302,
+      "weighted_goals_against_per_match": 0.844,
+      "weighted_goals_for_per_match": 1.792,
+      "weighted_matches": 70.88,
+      "weighted_points_rate": 0.6311
+    },
+    "united states virgin islands": {
+      "attack_factor": 0.7308,
+      "defense_concede_factor": 1.5162,
+      "display_name": "United States Virgin Islands",
+      "raw_matches": 49,
+      "weighted_goals_against_per_match": 2.861,
+      "weighted_goals_for_per_match": 0.568,
+      "weighted_matches": 15.56,
+      "weighted_points_rate": 0.1952
+    },
+    "uruguay": {
+      "attack_factor": 1.0236,
+      "defense_concede_factor": 0.7829,
+      "display_name": "Uruguay",
+      "raw_matches": 229,
+      "weighted_goals_against_per_match": 0.965,
+      "weighted_goals_for_per_match": 1.396,
+      "weighted_matches": 55.72,
+      "weighted_points_rate": 0.5552
+    },
+    "uzbekistan": {
+      "attack_factor": 1.1635,
+      "defense_concede_factor": 0.7753,
+      "display_name": "Uzbekistan",
+      "raw_matches": 208,
+      "weighted_goals_against_per_match": 0.922,
+      "weighted_goals_for_per_match": 1.668,
+      "weighted_matches": 42.85,
+      "weighted_points_rate": 0.5835
+    },
+    "vanuatu": {
+      "attack_factor": 1.3764,
+      "defense_concede_factor": 1.0135,
+      "display_name": "Vanuatu",
+      "raw_matches": 62,
+      "weighted_goals_against_per_match": 1.405,
+      "weighted_goals_for_per_match": 2.761,
+      "weighted_matches": 10.22,
+      "weighted_points_rate": 0.4452
+    },
+    "vatican city": {
+      "attack_factor": 1.0023,
+      "defense_concede_factor": 1.0895,
+      "display_name": "Vatican City",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 2.858,
+      "weighted_goals_for_per_match": 1.392,
+      "weighted_matches": 1.58,
+      "weighted_points_rate": 0.1192
+    },
+    "venezuela": {
+      "attack_factor": 0.8521,
+      "defense_concede_factor": 1.0842,
+      "display_name": "Venezuela",
+      "raw_matches": 221,
+      "weighted_goals_against_per_match": 1.511,
+      "weighted_goals_for_per_match": 1.079,
+      "weighted_matches": 48.06,
+      "weighted_points_rate": 0.3415
+    },
+    "vietnam": {
+      "attack_factor": 1.1406,
+      "defense_concede_factor": 0.8074,
+      "display_name": "Vietnam",
+      "raw_matches": 162,
+      "weighted_goals_against_per_match": 0.994,
+      "weighted_goals_for_per_match": 1.617,
+      "weighted_matches": 47.15,
+      "weighted_points_rate": 0.5329
+    },
+    "wales": {
+      "attack_factor": 0.8668,
+      "defense_concede_factor": 0.8694,
+      "display_name": "Wales",
+      "raw_matches": 179,
+      "weighted_goals_against_per_match": 1.116,
+      "weighted_goals_for_per_match": 1.111,
+      "weighted_matches": 52.17,
+      "weighted_points_rate": 0.4726
+    },
+    "western armenia": {
+      "attack_factor": 1.1217,
+      "defense_concede_factor": 0.9731,
+      "display_name": "Western Armenia",
+      "raw_matches": 16,
+      "weighted_goals_against_per_match": 1.212,
+      "weighted_goals_for_per_match": 1.999,
+      "weighted_matches": 6.17,
+      "weighted_points_rate": 0.4059
+    },
+    "western isles": {
+      "attack_factor": 0.972,
+      "defense_concede_factor": 1.2718,
+      "display_name": "Western Isles",
+      "raw_matches": 28,
+      "weighted_goals_against_per_match": 3.101,
+      "weighted_goals_for_per_match": 1.174,
+      "weighted_matches": 4.8,
+      "weighted_points_rate": 0.3321
+    },
+    "western sahara": {
+      "attack_factor": 1.0143,
+      "defense_concede_factor": 1.1181,
+      "display_name": "Western Sahara",
+      "raw_matches": 8,
+      "weighted_goals_against_per_match": 4.83,
+      "weighted_goals_for_per_match": 1.775,
+      "weighted_matches": 0.87,
+      "weighted_points_rate": 0.2582
+    },
+    "yemen": {
+      "attack_factor": 0.6237,
+      "defense_concede_factor": 1.2634,
+      "display_name": "Yemen",
+      "raw_matches": 153,
+      "weighted_goals_against_per_match": 1.937,
+      "weighted_goals_for_per_match": 0.521,
+      "weighted_matches": 28.39,
+      "weighted_points_rate": 0.2041
+    },
+    "ynys m\u00f4n": {
+      "attack_factor": 1.1542,
+      "defense_concede_factor": 1.0222,
+      "display_name": "Ynys M\u00f4n",
+      "raw_matches": 30,
+      "weighted_goals_against_per_match": 1.479,
+      "weighted_goals_for_per_match": 2.22,
+      "weighted_matches": 5.72,
+      "weighted_points_rate": 0.7276
+    },
+    "yorkshire": {
+      "attack_factor": 1.1904,
+      "defense_concede_factor": 1.011,
+      "display_name": "Yorkshire",
+      "raw_matches": 7,
+      "weighted_goals_against_per_match": 1.486,
+      "weighted_goals_for_per_match": 3.636,
+      "weighted_matches": 2.29,
+      "weighted_points_rate": 0.7879
+    },
+    "zambia": {
+      "attack_factor": 0.9733,
+      "defense_concede_factor": 0.962,
+      "display_name": "Zambia",
+      "raw_matches": 265,
+      "weighted_goals_against_per_match": 1.285,
+      "weighted_goals_for_per_match": 1.306,
+      "weighted_matches": 53.53,
+      "weighted_points_rate": 0.4654
+    },
+    "zanzibar": {
+      "attack_factor": 1.0122,
+      "defense_concede_factor": 0.9721,
+      "display_name": "Zanzibar",
+      "raw_matches": 68,
+      "weighted_goals_against_per_match": 1.205,
+      "weighted_goals_for_per_match": 1.419,
+      "weighted_matches": 6.13,
+      "weighted_points_rate": 0.4931
+    },
+    "zimbabwe": {
+      "attack_factor": 0.8708,
+      "defense_concede_factor": 0.8976,
+      "display_name": "Zimbabwe",
+      "raw_matches": 190,
+      "weighted_goals_against_per_match": 1.153,
+      "weighted_goals_for_per_match": 1.1,
+      "weighted_matches": 39.96,
+      "weighted_points_rate": 0.3846
+    },
+    "\u00e5land islands": {
+      "attack_factor": 0.991,
+      "defense_concede_factor": 0.9819,
+      "display_name": "\u00c5land Islands",
+      "raw_matches": 27,
+      "weighted_goals_against_per_match": 1.178,
+      "weighted_goals_for_per_match": 1.267,
+      "weighted_matches": 2.91,
+      "weighted_points_rate": 0.5192
+    }
+  },
+  "trained_at_utc": "2026-06-13T05:34:46.586938+00:00",
+  "training_rows": 17958
+}
