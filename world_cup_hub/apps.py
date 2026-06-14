@@ -44,6 +44,10 @@ NAV_ITEMS = {
 }
 
 
+def _e(value: object) -> str:
+    return html.escape(str(value))
+
+
 def render_app(page: str) -> None:
     if page == "home":
         render_home()
@@ -69,7 +73,7 @@ def render_home() -> None:
         "A clean workspace for World Cup predictions, tournament simulations, player impact, match volatility, and upset risk.",
     )
 
-    aura_matches, aura_board = prepare_aura_data(load_sample_player_data())
+    _, aura_board = prepare_aura_data(load_sample_player_data())
     chaos = score_chaos_matches(load_sample_chaos_data())
     underdogs = score_underdog_scenarios(load_sample_underdog_data())
     predictions = score_winner_matches(load_sample_winner_data())
@@ -87,7 +91,7 @@ def render_home() -> None:
     with cols[2]:
         render_score_card("Impact leader", float(top_player["aura_score"]))
     with cols[3]:
-        render_score_card("Top chaos match", float(top_match["chaos_score"]))
+        render_score_card("Top volatility", float(top_match["volatility_score"]))
     with cols[4]:
         render_score_card("Biggest upset risk", float(top_upset["upset_risk"]))
 
@@ -144,12 +148,12 @@ def render_home() -> None:
         st.caption(f"Archetype: {top_player['latest_archetype']}")
     with feature_cols[2]:
         st.markdown(f"**Volatility pick:** {top_match['fixture']}")
-        st.caption(f"Tag: {top_match['chaos_tag']}")
+        st.caption(f"Tag: {top_match['volatility_tag']}")
 
     with st.expander("What powers this site?"):
         st.markdown(
             "- Public fixture/rating/weather feeds where available  \n"
-            "- Hybrid heuristics inspired by ML feature engineering  \n"
+            "- Transparent public-data models and explainable scoring  \n"
             "- Streamlit frontend with multiple mini-apps in one site"
         )
 
@@ -228,10 +232,10 @@ def render_match_predictor() -> None:
             st.markdown(
                 f"""
                 <div class="match-card">
-                  <div class="muted">{strongest_pick['date']} · {strongest_pick.get('stage', '')} · {strongest_pick.get('city', '')}</div>
-                  <h2>{strongest_pick['fixture']}</h2>
-                  <div><strong>Pick:</strong> {strongest_pick['winner_pick']} &nbsp; <strong>Score:</strong> {strongest_pick['predicted_score']}</div>
-                  <div class="muted">Confidence {strongest_pick['confidence']:.1f}% · {strongest_pick['model_tag']}</div>
+                  <div class="muted">{_e(strongest_pick['date'])} · {_e(strongest_pick.get('stage', ''))} · {_e(strongest_pick.get('city', ''))}</div>
+                  <h2>{_e(strongest_pick['fixture'])}</h2>
+                  <div><strong>Pick:</strong> {_e(strongest_pick['winner_pick'])} &nbsp; <strong>Score:</strong> {_e(strongest_pick['predicted_score'])}</div>
+                  <div class="muted">Confidence {strongest_pick['confidence']:.1f}% · {_e(strongest_pick['model_tag'])}</div>
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -276,7 +280,11 @@ def render_match_predictor() -> None:
             st.info("No completed-match result file found yet. Add `data/public_2026_results.csv` or rerun ingestion once results are available.")
 
     with tabs[1]:
-        fixture_options = filtered["fixture"].tolist()
+        detail_rows = filtered.reset_index(drop=True).copy()
+        detail_rows["detail_label"] = detail_rows.apply(
+            lambda row: f"{row['date']} · {row['stage']} · {row['fixture']}", axis=1
+        )
+        fixture_options = detail_rows["detail_label"].tolist()
         if st.session_state.get("winner_browse_fixture") not in fixture_options:
             st.session_state["winner_browse_fixture"] = fixture_options[0]
 
@@ -291,24 +299,24 @@ def render_match_predictor() -> None:
                 st.session_state["winner_browse_fixture"] = fixture_options[current_index + 1]
                 st.rerun()
         with browse_select:
-            selected_fixture = st.selectbox(
+            selected_label = st.selectbox(
                 "Select match",
                 fixture_options,
                 index=fixture_options.index(st.session_state["winner_browse_fixture"]),
                 key="winner_browse_fixture",
             )
 
-        selected = filtered.loc[filtered["fixture"] == selected_fixture].iloc[0]
+        selected = detail_rows.loc[detail_rows["detail_label"] == selected_label].iloc[0]
         render_section_header("Match detail", "Prediction, probabilities, exact score grid, and the biggest factor edges.")
         detail_left, detail_right = st.columns([1.15, 1])
         with detail_left:
             st.markdown(
                 f"""
                 <div class="match-card">
-                  <div class="muted">{selected['date']} · {selected.get('kickoff_local', '')} · {selected['stage']}</div>
-                  <h2>{selected['fixture']}</h2>
-                  <div><strong>Pick:</strong> {selected['winner_pick']} &nbsp; <strong>Projected score:</strong> {selected['predicted_score']}</div>
-                  <div class="muted">{selected.get('stadium', 'Unknown stadium')} · {selected.get('city', 'Unknown city')} · {selected['model_family']}</div>
+                  <div class="muted">{_e(selected['date'])} · {_e(selected.get('kickoff_local', ''))} · {_e(selected['stage'])}</div>
+                  <h2>{_e(selected['fixture'])}</h2>
+                  <div><strong>Pick:</strong> {_e(selected['winner_pick'])} &nbsp; <strong>Projected score:</strong> {_e(selected['predicted_score'])}</div>
+                  <div class="muted">{_e(selected.get('stadium', 'Unknown stadium'))} · {_e(selected.get('city', 'Unknown city'))} · {_e(selected['model_family'])}</div>
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -433,7 +441,7 @@ def _render_completed_result_cards(completed: pd.DataFrame) -> None:
 
 def render_tournament_simulator() -> None:
     render_hero(
-        "Tournament Simulator"
+        "Tournament Simulator",
         "Monte Carlo view of group qualification plus an approximate knockout bracket using the Match Predictor probabilities.",
     )
 
@@ -670,8 +678,8 @@ def render_aura_lab() -> None:
                 f"""
                 <div class="match-card">
                   <div class="muted">Current leader</div>
-                  <h2>{leader['player']}</h2>
-                  <div><strong>{leader['team']}</strong> · {leader['latest_archetype']}</div>
+                  <h2>{_e(leader['player'])}</h2>
+                  <div><strong>{_e(leader['team'])}</strong> · {_e(leader['latest_archetype'])}</div>
                   <div class="muted">Impact {leader['aura_score']:.1f} · Peak {leader['peak_aura']:.1f}</div>
                 </div>
                 """,
@@ -755,11 +763,11 @@ def render_chaos_center() -> None:
     with metric_cols[0]:
         render_score_card("Matches", float(len(filtered)))
     with metric_cols[1]:
-        render_score_card("Top volatility", float(filtered["chaos_score"].max()))
+        render_score_card("Top volatility", float(filtered["volatility_score"].max()))
     with metric_cols[2]:
-        render_score_card("Viral risk", float(filtered["meme_voltage"].max()), "%")
+        render_score_card("Viral risk", float(filtered["viral_risk"].max()), "%")
     with metric_cols[3]:
-        render_score_card("Average volatility", float(filtered["chaos_score"].mean()))
+        render_score_card("Average volatility", float(filtered["volatility_score"].mean()))
 
     overview_tab, detail_tab, data_tab = st.tabs(["Overview", "Match detail", "Data"])
     with overview_tab:
@@ -770,19 +778,18 @@ def render_chaos_center() -> None:
                 f"""
                 <div class="match-card">
                   <div class="muted">Highest volatility fixture</div>
-                  <h2>{feature['fixture']}</h2>
-                  <div><strong>{feature['stage']}</strong> · {feature['chaos_tag']}</div>
-                  <div class="muted">Score {feature['chaos_score']:.1f} · Viral risk {feature['meme_voltage']:.1f}%</div>
+                  <h2>{_e(feature['fixture'])}</h2>
+                  <div><strong>{_e(feature['stage'])}</strong> · {_e(feature['volatility_tag'])}</div>
+                  <div class="muted">Score {feature['volatility_score']:.1f} · Viral risk {feature['viral_risk']:.1f}%</div>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
         with right:
-            chart = filtered.rename(columns={"chaos_score": "volatility_score", "meme_voltage": "viral_risk"})
-            st.bar_chart(chart.set_index("fixture")[["volatility_score", "viral_risk"]], horizontal=True)
+            st.bar_chart(filtered.set_index("fixture")[["volatility_score", "viral_risk"]], horizontal=True)
         st.dataframe(
-            filtered[["fixture", "stage", "chaos_score", "meme_voltage", "chaos_tag"]]
-            .rename(columns={"chaos_score": "volatility_score", "meme_voltage": "viral_risk", "chaos_tag": "tag"}),
+            filtered[["fixture", "stage", "volatility_score", "viral_risk", "volatility_tag"]]
+            .rename(columns={"volatility_tag": "tag"}),
             hide_index=True,
             use_container_width=True,
         )
@@ -790,7 +797,7 @@ def render_chaos_center() -> None:
     with detail_tab:
         selected_match = st.selectbox("Inspect match", filtered["fixture"].tolist(), key="chaos_match")
         match_row = filtered.loc[filtered["fixture"] == selected_match].iloc[0]
-        render_section_header(selected_match, f"{match_row['stage']} · {match_row['chaos_tag']}")
+        render_section_header(selected_match, f"{match_row['stage']} · {match_row['volatility_tag']}")
         detail_df = pd.DataFrame(
             {
                 "signal": ["goals", "yellow cards", "red cards", "penalties", "VAR incidents", "late goals", "lead changes", "crowd noise"],
@@ -811,8 +818,8 @@ def render_chaos_center() -> None:
             st.dataframe(detail_df, hide_index=True, use_container_width=True)
         with right:
             st.bar_chart(detail_df, x="signal", y="value")
-            st.progress(min(max(float(match_row["chaos_score"]) / 100, 0.0), 1.0), text=f"Volatility score: {match_row['chaos_score']:.1f}")
-            st.progress(min(max(float(match_row["meme_voltage"]) / 100, 0.0), 1.0), text=f"Viral risk: {match_row['meme_voltage']:.1f}%")
+            st.progress(min(max(float(match_row["volatility_score"]) / 100, 0.0), 1.0), text=f"Volatility score: {match_row['volatility_score']:.1f}")
+            st.progress(min(max(float(match_row["viral_risk"]) / 100, 0.0), 1.0), text=f"Viral risk: {match_row['viral_risk']:.1f}%")
 
     with data_tab:
         render_section_header("Upload schema", "Use this if you want to replace the sample match-volatility data.")
@@ -927,8 +934,8 @@ def render_fan_pain_lab() -> None:
             referee_anxiety=referee_anxiety,
         )
         render_score_card("Pressure score", float(result["pain_score"]))
-        st.progress(min(max(float(result["pain_score"]) / 100, 0.0), 1.0), text=f"Tier: {result['tier']}")
-        st.progress(min(max(float(result["meltdown_probability"]) / 100, 0.0), 1.0), text=f"High-pressure reaction probability: {result['meltdown_probability']:.1f}%")
+        st.progress(min(max(float(result["pressure_score"]) / 100, 0.0), 1.0), text=f"Tier: {result['tier']}")
+        st.progress(min(max(float(result["reaction_probability"]) / 100, 0.0), 1.0), text=f"High-pressure reaction probability: {result['reaction_probability']:.1f}%")
 
         breakdown = pd.DataFrame(
             {

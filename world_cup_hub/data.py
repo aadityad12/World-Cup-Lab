@@ -207,24 +207,26 @@ def score_chaos_matches(df: pd.DataFrame) -> pd.DataFrame:
     )
     chaos_score = (volatility * (1 + 0.08 * scored["upset_factor"]) * 100).clip(0, 100)
 
-    scored["chaos_score"] = chaos_score.round(1)
-    scored["volatility_score"] = (volatility * 100).round(1)
-    scored["meme_voltage"] = chaos_score.apply(lambda value: _sigmoid((value - 55) / 8) * 100).round(1)
-    scored["chaos_tag"] = scored.apply(_chaos_tag, axis=1)
+    scored["chaos_score"] = chaos_score.round(1)  # Backwards-compatible column name.
+    scored["volatility_score"] = chaos_score.round(1)
+    scored["meme_voltage"] = chaos_score.apply(lambda value: _sigmoid((value - 55) / 8) * 100).round(1)  # Backwards-compatible column name.
+    scored["viral_risk"] = scored["meme_voltage"]
+    scored["chaos_tag"] = scored.apply(_volatility_tag, axis=1)  # Backwards-compatible column name.
+    scored["volatility_tag"] = scored["chaos_tag"]
     scored["fixture"] = scored["team_a"] + " vs " + scored["team_b"]
-    return scored.sort_values("chaos_score", ascending=False).reset_index(drop=True)
+    return scored.sort_values("volatility_score", ascending=False).reset_index(drop=True)
 
 
-def _chaos_tag(row: pd.Series) -> str:
+def _volatility_tag(row: pd.Series) -> str:
     if row["chaos_score"] >= 82:
-        return "Pure cinema"
+        return "Extreme volatility"
     if row["var_incidents"] >= 2 or row["penalties"] >= 2:
-        return "VAR meltdown"
+        return "Review-heavy"
     if row["late_goals"] >= 2:
-        return "Late-game bedlam"
+        return "Late swing risk"
     if row["red_cards"] >= 1:
-        return "Spicy knockout energy"
-    return "Controlled mayhem"
+        return "Discipline risk"
+    return "Moderate volatility"
 
 
 def score_underdog_scenarios(df: pd.DataFrame) -> pd.DataFrame:
@@ -252,11 +254,11 @@ def score_underdog_scenarios(df: pd.DataFrame) -> pd.DataFrame:
 
 def _danger_label(value: float) -> str:
     if value >= 72:
-        return "Sirens on"
+        return "High risk"
     if value >= 58:
-        return "Very live"
+        return "Elevated"
     if value >= 45:
-        return "Tricky"
+        return "Watchlist"
     return "Manageable"
 
 
@@ -535,16 +537,21 @@ def build_prediction_result_comparison(predictions: pd.DataFrame, results: pd.Da
         return pd.DataFrame()
     pred = predictions.copy()
     actual = results.copy()
-    pred["_join_key"] = pred.apply(
-        lambda row: f"{row['date']}|{normalize_team_name(row['team_a'])}|{normalize_team_name(row['team_b'])}",
-        axis=1,
+    pred["_join_key"] = pred.apply(_ordered_result_key, axis=1)
+
+    actual_forward = actual.copy()
+    actual_forward["_join_key"] = actual_forward.apply(_ordered_result_key, axis=1)
+
+    actual_reversed = actual.copy()
+    actual_reversed["_join_key"] = actual_reversed.apply(_reversed_result_key, axis=1)
+    actual_reversed["actual_score"] = actual_reversed.apply(
+        lambda row: f"{row['actual_goals_b']}-{row['actual_goals_a']}", axis=1
     )
-    actual["_join_key"] = actual.apply(
-        lambda row: f"{row['date']}|{normalize_team_name(row['team_a'])}|{normalize_team_name(row['team_b'])}",
-        axis=1,
-    )
+
+    actual_lookup = pd.concat([actual_forward, actual_reversed], ignore_index=True, sort=False)
+    actual_lookup = actual_lookup.drop_duplicates(subset=["_join_key"], keep="first")
     merged = pred.merge(
-        actual[["_join_key", "actual_score", "actual_goals_a", "actual_goals_b", "actual_outcome", "result_source"]],
+        actual_lookup[["_join_key", "actual_score", "actual_goals_a", "actual_goals_b", "actual_outcome", "result_source"]],
         on="_join_key",
         how="inner",
     )
@@ -554,6 +561,14 @@ def build_prediction_result_comparison(predictions: pd.DataFrame, results: pd.Da
     merged["exact_score_correct"] = merged["predicted_score"].astype(str) == merged["actual_score"].astype(str)
     merged["result_status"] = merged["prediction_correct"].map({True: "Correct", False: "Missed"})
     return merged.sort_values(["date", "match_id"]).reset_index(drop=True)
+
+
+def _ordered_result_key(row: pd.Series) -> str:
+    return f"{row['date']}|{normalize_team_name(row['team_a'])}|{normalize_team_name(row['team_b'])}"
+
+
+def _reversed_result_key(row: pd.Series) -> str:
+    return f"{row['date']}|{normalize_team_name(row['team_b'])}|{normalize_team_name(row['team_a'])}"
 
 
 def build_scoreline_heatmap(row: pd.Series) -> pd.DataFrame:
@@ -697,16 +712,19 @@ def simulate_fan_pain(
     score = max(0.0, min(100.0, weighted))
 
     if score >= 82:
-        tier = "Catastrophic"
+        tier = "Extreme pressure"
     elif score >= 68:
-        tier = "High stress"
+        tier = "High pressure"
     elif score >= 50:
-        tier = "Emotionally dangerous"
+        tier = "Moderate pressure"
     else:
-        tier = "Mostly survivable"
+        tier = "Manageable pressure"
 
+    reaction_probability = round(_sigmoid((score - 58) / 7) * 100, 1)
     return {
-        "pain_score": round(score, 1),
+        "pain_score": round(score, 1),  # Backwards-compatible key.
+        "pressure_score": round(score, 1),
         "tier": tier,
-        "meltdown_probability": round(_sigmoid((score - 58) / 7) * 100, 1),
+        "meltdown_probability": reaction_probability,  # Backwards-compatible key.
+        "reaction_probability": reaction_probability,
     }

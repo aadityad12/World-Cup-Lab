@@ -1,15 +1,15 @@
-# World Cup Fun Lab
+# World Cup Lab
 
-A Streamlit mini-site full of playful World Cup analytics apps.
+A Streamlit workspace for World Cup predictions, tournament simulation, player impact, match volatility, upset risk, and fan-pressure analysis.
 
 ## Included apps
 
 - **Match Predictor** — flagship section that predicts match winners and scores, then shows the factors behind every pick
 - **Tournament Simulator** — Monte Carlo group qualification and approximate title-odds simulator powered by Match Predictor probabilities
-- **Aura Lab** — scores player aura from match impact, crowd reaction, broadcast attention, and social buzz
-- **Chaos Center** — ranks matches by cards, late goals, penalties, VAR drama, and overall nonsense
-- **Underdog Radar** — estimates upset danger for favorites
-- **Fan Pain Lab** — simulates the emotional suffering of a fanbase
+- **Player Impact** — scores player influence from match impact, crowd reaction, broadcast attention, and public reaction
+- **Match Volatility** — ranks matches by cards, late goals, penalties, VAR incidents, and other high-variance signals
+- **Upset Risk** — estimates upset danger for favorites
+- **Fan Pressure** — estimates pressure/stress risk for a fanbase
 
 ## Quick start
 

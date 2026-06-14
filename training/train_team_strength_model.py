@@ -261,7 +261,6 @@ def evaluate(test: pd.DataFrame, profiles_blob: dict[str, Any], rho: float) -> d
 
 def main() -> None:
     df = load_results()
-    max_date = df["date"].max()
     cutoff = max(pd.Timestamp("2023-01-01"), df["date"].quantile(0.82))
     train = df[df["date"] < cutoff].copy()
     holdout = df[df["date"] >= cutoff].copy()

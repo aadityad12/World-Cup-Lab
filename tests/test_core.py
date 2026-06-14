@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import ast
 import json
+from pathlib import Path
 
 import pandas as pd
 
@@ -60,3 +62,30 @@ def test_completed_results_join_to_predictions() -> None:
     comparison = build_prediction_result_comparison(predictions, load_public_2026_results())
     assert len(comparison) >= 4
     assert {"actual_score", "actual_outcome", "prediction_correct"}.issubset(comparison.columns)
+
+
+def test_completed_results_join_handles_reversed_team_order() -> None:
+    predictions = score_winner_matches(pd.read_csv("data/public_2026_match_features.csv")).head(1)
+    row = predictions.iloc[0]
+    reversed_result = pd.DataFrame([
+        {
+            "date": row["date"],
+            "team_a": row["team_b"],
+            "team_b": row["team_a"],
+            "actual_score": "0-2",
+            "actual_goals_a": 0,
+            "actual_goals_b": 2,
+            "actual_outcome": row["team_a"],
+            "result_source": "test",
+        }
+    ])
+    comparison = build_prediction_result_comparison(predictions, reversed_result)
+    assert len(comparison) == 1
+    assert comparison.iloc[0]["actual_score"] == "2-0"
+
+
+def test_render_hero_calls_have_title_and_subtitle() -> None:
+    tree = ast.parse(Path("world_cup_hub/apps.py").read_text())
+    calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call) and getattr(node.func, "id", "") == "render_hero"]
+    assert calls
+    assert all(len(call.args) == 2 for call in calls)

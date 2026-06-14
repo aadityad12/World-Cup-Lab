@@ -45,7 +45,7 @@ GLOBAL_STYLES = """
   .section-title h2 {font-size: 1.18rem; margin: 0; color: var(--ink); letter-spacing: -.025em;}
   .section-title p {margin: .2rem 0 0 0; color: var(--muted); font-size: .94rem;}
 
-  .score-card, .app-card, .match-card, .info-panel {
+  .score-card, .app-card, .match-card {
     background: var(--card);
     color: var(--ink);
     border: 1px solid var(--border);
@@ -65,9 +65,6 @@ GLOBAL_STYLES = """
   .match-card strong {color: var(--ink);}
   .match-card .muted, .muted {color: var(--muted);}
 
-  .info-panel {padding: 1rem 1.05rem; margin-bottom: .75rem;}
-  .info-panel h3 {margin: 0 0 .35rem 0; color: var(--ink); font-size: 1.05rem;}
-  .info-panel p {margin: 0; color: var(--ink-2); line-height: 1.5;}
 
   .pill, .status-pill {
     display: inline-block;
@@ -172,18 +169,6 @@ def render_app_card(title: str, description: str, meta: str) -> None:
           <h3>{html.escape(title)}</h3>
           <p>{html.escape(description)}</p>
           <span class="pill">{html.escape(meta)}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def render_info_panel(title: str, body: str) -> None:
-    st.markdown(
-        f"""
-        <div class="info-panel">
-          <h3>{html.escape(title)}</h3>
-          <p>{html.escape(body)}</p>
         </div>
         """,
         unsafe_allow_html=True,
